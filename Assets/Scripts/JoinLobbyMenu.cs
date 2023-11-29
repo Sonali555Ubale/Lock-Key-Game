@@ -8,14 +8,14 @@ using System;
 public class JoinLobbyMenu : MonoBehaviour
 {
     [SerializeField]
-    private NetworkManagerLobby networkManager;
-    [SerializeField]
-    private TMP_InputField ipAddressInputField;
-    [SerializeField]
-    private Button joinBtn;
+    private NetworkManagerLobby networkManager = null;
 
     [Header("UI")]
-    [SerializeField] private GameObject landingPagePanel;
+    [SerializeField]
+    private TMP_InputField ipAddressInputField = null;
+    [SerializeField]
+    private Button joinBtn;    
+    [SerializeField] private GameObject landingPagePanel = null;
 
 
     private void OnEnable()
@@ -42,12 +42,13 @@ public class JoinLobbyMenu : MonoBehaviour
     private void HandleClientDisconnected()
     {
         joinBtn.interactable = true;
-        gameObject.SetActive(false);
-        landingPagePanel.SetActive(false);
     }
 
     private void HandleClientConnected()
     {
         joinBtn.interactable = true;
+
+        gameObject.SetActive(false);
+        landingPagePanel.SetActive(false);
     }
 }
