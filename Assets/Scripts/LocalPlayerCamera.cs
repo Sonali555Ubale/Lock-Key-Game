@@ -21,8 +21,4 @@ public class LocalPlayerCamera : NetworkBehaviour
     }
 
  
-    void Update()
-    {
-        
-    }
 }
