@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField]
-    private NetworkManagerLobby networkManager;
+    private NetworkRoomManager networkManager;
+    
+
     [Header("UI")]
     [SerializeField] private GameObject landingPagePanel;
 

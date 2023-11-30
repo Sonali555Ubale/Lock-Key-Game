@@ -35,7 +35,7 @@ public class NetworkManagerLobby : NetworkManager
         foreach (var prefab in spawnablePrefabs)
         {
             NetworkClient.RegisterPrefab(prefab);      //ClientScene is now merged with NetworkClient
-            // ClientScene.RegisterPrefab(prefab);
+            
         }
     }
 
@@ -84,8 +84,9 @@ public class NetworkManagerLobby : NetworkManager
                                                                                         //when in the menu scene it spawns the player prefabs for connection
             NetworkRoomPlayerLobby roomPlayerInstance = Instantiate(roomPlayerPrefab);
             roomPlayerInstance.IsDenner = isDenner;
-            NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);   //giving authority to client
-           /* NetworkServer.Spawn(roomPlayerInstance.gameObject, conn);  */        //giving authority to client
+            NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);   //giving server side authority to client
+           // NetworkServer.Spawn(roomPlayerInstance.gameObject, conn);        //giving authority to client
+           
         }
     }
 
@@ -119,6 +120,7 @@ public class NetworkManagerLobby : NetworkManager
     {
         if (SceneManager.GetActiveScene().name == menuScene)
         {
+           
             if (!IsReadyToStart()) { return; }
 
             ServerChangeScene("GameScene");
@@ -127,7 +129,7 @@ public class NetworkManagerLobby : NetworkManager
 
     public override void ServerChangeScene(string newSceneName)  //Start game scene
     {
-        if (SceneManager.GetActiveScene().name == menuScene && newSceneName.StartsWith("GameS"))
+        if (SceneManager.GetActiveScene().name == menuScene)
         {
             for (int i = RoomPlayer.Count - 1; i >= 0; i--)
             {

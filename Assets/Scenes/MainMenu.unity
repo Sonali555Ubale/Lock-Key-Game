@@ -3534,7 +3534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3549056085904773680, guid: 2079e8aae0da7014ca0788d8198267bb, type: 3}
       propertyPath: serverOnly
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3552,6 +3552,7 @@ GameObject:
   - component: {fileID: 2065072616}
   - component: {fileID: 2065072614}
   - component: {fileID: 2065072617}
+  - component: {fileID: 2065072618}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -3584,10 +3585,12 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 66723644790249107, guid: 2079e8aae0da7014ca0788d8198267bb, type: 3}
+  playerPrefab: {fileID: 5249705828209296803, guid: f4e6a8dc91892a744880743e8029c1cb, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 66723644790249107, guid: 2079e8aae0da7014ca0788d8198267bb, type: 3}
+  - {fileID: 66723644790249107, guid: b5275cd27352c274399e5970e7ccc80e, type: 3}
   snapshotSettings:
     bufferTimeMultiplier: 2
     bufferLimit: 32
@@ -3647,8 +3650,22 @@ MonoBehaviour:
   ReliableMaxMessageSize: 297433
   UnreliableMaxMessageSize: 1195
   debugLog: 1
-  statisticsGUI: 0
+  statisticsGUI: 1
   statisticsLog: 0
+--- !u!114 &2065072618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065072613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetX: 0
+  offsetY: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

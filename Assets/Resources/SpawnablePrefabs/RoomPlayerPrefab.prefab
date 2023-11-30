@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 1
-  syncMode: 1
+  syncMode: 0
   syncInterval: 0
   LobbyUI: {fileID: 3508976015138653492}
   PlayerNameTxt:

@@ -64,11 +64,11 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     private void UpdateDisplay()
     {
-        if (!hasAuthority || !isOwned)                //hasAuthority is renamed as isOwnwd
+        if (!isOwned)                //hasAuthority is renamed as isOwnwd
         {
             foreach (var player in Room.RoomPlayer)        //if the player does not bolongs to us or does not have authority then check which players having authoryty and Update the DisplayName
             {
-                if (player.isOwned || player.hasAuthority)
+                if (player.isOwned )
                 {
                     player.UpdateDisplay();
                    // player.netIdentity.AssignClientAuthority(connectionToClient);
@@ -87,9 +87,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         for (int i = 0; i < Room.RoomPlayer.Count; i++)
         {
             PlayerNameTxt[i].text = Room.RoomPlayer[i].DisplayName;
-            PlayerReadyTxt[i].text = Room.RoomPlayer[i].isReady ?
-                "<color=green>Ready</color>" :
-                "<color=red>Not Ready</color>";
+            PlayerReadyTxt[i].text = Room.RoomPlayer[i].isReady ? "<color=green>Ready</color>" : "<color=red>Not Ready</color>";
         }
     }
 
@@ -108,6 +106,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [Command]
     public void CmdReadyUp()    //called when Ui Ready button is clicked
     {
+       
         isReady = !isReady;   //on off toggle of ready btn
      
         Room.NotifyReadyState();
@@ -116,9 +115,10 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [Command]
     public void CmdStartGame()             //called when Ui start button clicked
     {
-        if (Room.RoomPlayer[0].connectionToClient != connectionToClient) { return; } //if room player does not have authority then return else StartCoroutine game.
+        if (Room.RoomPlayer[0].connectionToClient != connectionToClient) { return; } //if room player does not have authority then return else Start game.
+       
         Room.StartGame();
-      
+              
         Debug.Log(" Game Started...");
 
     }
