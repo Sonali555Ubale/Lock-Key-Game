@@ -140,6 +140,7 @@ namespace Mirror
                 gamePlayer = startPos != null
                     ? Instantiate(playerPrefab, startPos.position, startPos.rotation)
                     : Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+                Debug.Log("Start Position is : "+startPos.position);
             }
 
             if (!OnRoomServerSceneLoadedForPlayer(conn, roomPlayer, gamePlayer))

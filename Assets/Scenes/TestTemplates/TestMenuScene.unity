@@ -2563,13 +2563,13 @@ MonoBehaviour:
   onlineScene: Assets/Scenes/TestTemplates/RoomScene.unity
   transport: {fileID: 1657331691}
   networkAddress: localhost
-  maxConnections: 100
+  maxConnections: 50
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 5602966812431893182, guid: ea62c1d035f7d5e4aadfb7e628fb9caf, type: 3}
   autoCreatePlayer: 1
-  playerSpawnMethod: 0
+  playerSpawnMethod: 1
   spawnPrefabs: []
   snapshotSettings:
     bufferTimeMultiplier: 2

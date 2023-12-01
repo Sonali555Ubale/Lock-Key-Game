@@ -500,7 +500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.29
+  syncInterval: 0
   Sec: 60
   LoadingImage: {fileID: 8700356283589845657}
   TimeLeft: {fileID: 8700356285428770056}
@@ -737,13 +737,13 @@ MonoBehaviour:
   onlineScene: Assets/Scenes/GameScene.unity
   transport: {fileID: 1398640819}
   networkAddress: localhost
-  maxConnections: 100
+  maxConnections: 50
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 5602966812431893182, guid: ea62c1d035f7d5e4aadfb7e628fb9caf, type: 3}
   autoCreatePlayer: 1
-  playerSpawnMethod: 0
+  playerSpawnMethod: 1
   spawnPrefabs: []
   snapshotSettings:
     bufferTimeMultiplier: 1

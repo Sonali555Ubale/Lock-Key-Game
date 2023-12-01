@@ -1132,13 +1132,13 @@ namespace Mirror
         {
             // first remove any dead transforms
             startPositions.RemoveAll(t => t == null);
-
+          
             if (startPositions.Count == 0)
                 return null;
 
             if (playerSpawnMethod == PlayerSpawnMethod.Random)
             {
-                return startPositions[UnityEngine.Random.Range(0, startPositions.Count)];
+               return startPositions[UnityEngine.Random.Range(0, startPositions.Count)];
             }
             else
             {
