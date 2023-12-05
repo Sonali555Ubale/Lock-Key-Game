@@ -6,7 +6,7 @@ using Mirror;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField]
-    private NetworkRoomManager networkManager;
+    private NetworkManager networkManager;
     
 
     [Header("UI")]

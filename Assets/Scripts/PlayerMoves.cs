@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using TMPro;
 
 public class PlayerMoves : NetworkBehaviour
 {
@@ -40,14 +41,10 @@ public class PlayerMoves : NetworkBehaviour
         DennerCrown.SetActive(isHost);
         
         LockedPlayerAura.SetActive(isLocked && !isHost);
-        if (isLocked && !isHost)
-
-            HappyEmogy.sprite = SadEmogySprite;
-        else
-            HappyEmogy.sprite = HappyEmogySprite;
-
+        SwitchFaceExpression();
         movePlayer();
-     }
+
+    }
 
     public void movePlayer()
     {
@@ -80,7 +77,6 @@ public class PlayerMoves : NetworkBehaviour
         if (!isHost)
             isHappy = newVal;
     }
-    
 
     [Command]
     public void CmdSetPlayerAura(bool val)
@@ -94,12 +90,24 @@ public class PlayerMoves : NetworkBehaviour
        isHappy = val;
     }
 
+    public void SwitchFaceExpression()
+    {
+        if (isLocked && !isHost)
+
+            HappyEmogy.sprite = SadEmogySprite;
+        else
+            HappyEmogy.sprite = HappyEmogySprite;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //on collision isHost condition checked and Set the CmdSetPlayerAura value
-        CmdSetPlayerAura(collision.gameObject.GetComponent<PlayerMoves>().isHost && isLocalPlayer);
-        CmdSetPlayerEmogy(collision.gameObject.GetComponent<PlayerMoves>().isHost && isLocalPlayer);
+        if (collision.gameObject.tag == "Player")
+        {
+            CmdSetPlayerAura(collision.gameObject.GetComponent<PlayerMoves>().isHost && isLocalPlayer);
+
+            CmdSetPlayerEmogy(collision.gameObject.GetComponent<PlayerMoves>().isHost && isLocalPlayer);
+        }
     }           
 
 

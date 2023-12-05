@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using Mirror;
+using UnityEngine.SceneManagement;
+
 public class PlayerNameInput : MonoBehaviour
 {
     [Header("UI")]
@@ -39,6 +41,7 @@ public class PlayerNameInput : MonoBehaviour
     {
         DisplayName = playerNameInputField.text;
         PlayerPrefs.SetString(PlayerPrefsNameKey, DisplayName);
-       // NetworkRoomPlayer.SetDisplayName(DisplayName);
+        SceneManager.LoadScene("RoomScene");
+       //NetworkRoomPlayer.SetDisplayName(DisplayName);
     }
 }

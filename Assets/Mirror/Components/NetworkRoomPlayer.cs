@@ -132,7 +132,8 @@ namespace Mirror
         {
             if (!showRoomGUI)
                 return;
-
+            GUI.backgroundColor = Color.white;
+              
             NetworkRoomManager room = NetworkManager.singleton as NetworkRoomManager;
             if (room)
             {
@@ -150,8 +151,9 @@ namespace Mirror
 
         void DrawPlayerReadyState()
         {
-            GUILayout.BeginArea(new Rect(20f + (index * 100), 200f, 90f, 130f));
-
+            GUILayout.BeginArea(new Rect(20f + (index * 100), 200f, 90f, 130f) );
+           
+           GUI.color = Color.white;
             GUILayout.Label($"Player [{index + 1}]" );
 
             if (readyToBegin)
@@ -175,6 +177,8 @@ namespace Mirror
             if (NetworkClient.active && isLocalPlayer)
             {
                 GUILayout.BeginArea(new Rect(20f, 300f, 120f, 20f));
+                GUI.color = Color.white;
+                GUI.backgroundColor = Color.yellow;
 
                 if (readyToBegin)
                 {
