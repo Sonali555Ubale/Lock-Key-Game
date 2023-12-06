@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class NetworkRoomPlayerLobby : NetworkBehaviour
 {
     [Header("UI")]
-    [SerializeField] private GameObject LobbyUI = null;
+    [SerializeField] private GameObject LobbyUI;
     [SerializeField] private TMP_Text[] PlayerNameTxt = new TMP_Text[5];
     [SerializeField] private TMP_Text[] PlayerReadyTxt = new TMP_Text[5];
-    [SerializeField] private Button BtnStartGame = null;
+    [SerializeField] private Button BtnStartGame;
 
     [SyncVar(hook = nameof(HandleDisplayNameChanged))]
     public string DisplayName = "Loading...";

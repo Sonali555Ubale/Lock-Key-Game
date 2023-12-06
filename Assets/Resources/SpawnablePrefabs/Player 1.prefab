@@ -99,7 +99,6 @@ GameObject:
   - component: {fileID: 5062903842672937956}
   - component: {fileID: 4342506892540101248}
   - component: {fileID: 3561483261755915244}
-  - component: {fileID: 6360791336834114020}
   - component: {fileID: 400681319567239517}
   - component: {fileID: 4911009341463089755}
   m_Layer: 6
@@ -170,7 +169,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: fdf30e459eab11544b011edb22d52e94, type: 3}
-  m_Color: {r: 0.990566, g: 0.990566, b: 0.990566, a: 1}
+  m_Color: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -318,24 +317,6 @@ MonoBehaviour:
   isHost: 0
   isLocked: 0
   isHappy: 1
---- !u!114 &6360791336834114020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5602966812431893182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e6a8bf08f02e254aa9a52ef0aaa1553, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 1
-  syncMode: 0
-  syncInterval: 0
-  color:
-    serializedVersion: 2
-    rgba: 4294637562
 --- !u!114 &400681319567239517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,7 +350,9 @@ MonoBehaviour:
   syncInterval: 0
   playerNameText: {fileID: 8403206960709314126}
   floatingInfo: {fileID: 5881405556973656928}
+  PlayerSprite: {fileID: 3404631934944584643}
   playerName: Sonali
+  playerColor: {r: 0.8773585, g: 0.8580456, b: 0.8580456, a: 0}
 --- !u!1 &5881405556973656928
 GameObject:
   m_ObjectHideFlags: 0

@@ -1730,6 +1730,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNameInputField: {fileID: 1851629871}
   SubmitBtn: {fileID: 1435505059}
+  colorSelectionUI: {fileID: 0}
+  ColorPanel: {fileID: 0}
 --- !u!1001 &1292179916
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3475,7 +3477,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 66723644790249107, guid: 2079e8aae0da7014ca0788d8198267bb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1039902879922640154, guid: 2079e8aae0da7014ca0788d8198267bb, type: 3}
       propertyPath: m_LocalPosition.x

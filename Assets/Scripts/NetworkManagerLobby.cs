@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class NetworkManagerLobby : NetworkManager
 {
     [Scene]
-    [SerializeField] private string menuScene = string.Empty;
+    [SerializeField] private string TestMenuScene = string.Empty;
 
     [SerializeField] private int minPlayers = 3;
 
@@ -58,7 +58,7 @@ public class NetworkManagerLobby : NetworkManager
             conn.Disconnect();
             return;
         }
-        if (SceneManager.GetActiveScene().name != menuScene)
+        if (SceneManager.GetActiveScene().name != TestMenuScene)
         {
             conn.Disconnect();
             return;
@@ -78,7 +78,7 @@ public class NetworkManagerLobby : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {                                                               //called on the server when a client adds player with ClientScene.AddPlayer
-        if (SceneManager.GetActiveScene().name == menuScene)
+        if (SceneManager.GetActiveScene().name == TestMenuScene)
         {
             bool isDenner = RoomPlayer.Count == 0;               // 0th member of the list is the host or the leader
                                                                                         //when in the menu scene it spawns the player prefabs for connection
@@ -118,7 +118,7 @@ public class NetworkManagerLobby : NetworkManager
 
     public void StartGame()
     {
-        if (SceneManager.GetActiveScene().name == menuScene)
+        if (SceneManager.GetActiveScene().name == TestMenuScene)
         {
            
             if (!IsReadyToStart()) { return; }
@@ -129,7 +129,7 @@ public class NetworkManagerLobby : NetworkManager
 
     public override void ServerChangeScene(string newSceneName)  //Start game scene
     {
-        if (SceneManager.GetActiveScene().name == menuScene)
+        if (SceneManager.GetActiveScene().name == TestMenuScene)
         {
             for (int i = RoomPlayer.Count - 1; i >= 0; i--)
             {
