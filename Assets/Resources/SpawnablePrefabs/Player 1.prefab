@@ -350,9 +350,7 @@ MonoBehaviour:
   syncInterval: 0
   playerNameText: {fileID: 8403206960709314126}
   floatingInfo: {fileID: 5881405556973656928}
-  PlayerSprite: {fileID: 3404631934944584643}
   playerName: Sonali
-  playerColor: {r: 0.8773585, g: 0.8580456, b: 0.8580456, a: 0}
 --- !u!1 &5881405556973656928
 GameObject:
   m_ObjectHideFlags: 0

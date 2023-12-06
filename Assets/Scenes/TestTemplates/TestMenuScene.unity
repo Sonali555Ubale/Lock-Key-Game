@@ -931,7 +931,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNameInputField: {fileID: 352917527}
   SubmitBtn: {fileID: 1976220814}
-  colorSelectionUI: {fileID: 793965827}
   ColorPanel: {fileID: 793965822}
 --- !u!114 &340660789
 MonoBehaviour:
@@ -1407,7 +1406,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 6.0545}
+  m_AnchoredPosition: {x: 0, y: 6.0544434}
   m_SizeDelta: {x: 0, y: 12.109}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &793965824
@@ -1487,8 +1486,8 @@ MonoBehaviour:
   - {fileID: 191703787}
   - {fileID: 1358546246}
   - {fileID: 1881068691}
-  colorSelectionUI: {fileID: 0}
-  ColorPanel: {fileID: 0}
+  colorSelectionUI: {fileID: 793965827}
+  ColorPanel: {fileID: 793965822}
 --- !u!1 &889711846
 GameObject:
   m_ObjectHideFlags: 0

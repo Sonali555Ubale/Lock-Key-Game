@@ -57,7 +57,7 @@ public class PlayerFloatingName : NetworkBehaviour
         if (!isLocalPlayer)
         {
             // make non-local players run this
-            floatingInfo.transform.LookAt(Camera.main.transform);
+            floatingInfo.transform.LookAt(floatingInfo.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
             return;
         }
     }
