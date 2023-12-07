@@ -8,7 +8,7 @@ public class ColorSelectionUI : NetworkBehaviour
     public Image colorPreviewImage;
     public Button[] colorButtons;
 
-    public Color selectedColor = Color.white;
+    public Color selectedColor = Color.red;
    
 
     [Header("Color Selection")]
@@ -32,6 +32,10 @@ public class ColorSelectionUI : NetworkBehaviour
         // Set the selected color when a color button is clicked
         selectedColor = _color;
         colorPreviewImage.color = _color;
+        PlayerPrefs.SetFloat("PlayerColorR", selectedColor.r);
+        PlayerPrefs.SetFloat("PlayerColorG", selectedColor.g);
+        PlayerPrefs.SetFloat("PlayerColorB", selectedColor.b);
+        PlayerPrefs.SetFloat("PlayerColorA", selectedColor.a);
     }
 
     public void OnSetColorButtonClick()

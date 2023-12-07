@@ -9,7 +9,7 @@ public class PlayerFloatingName : NetworkBehaviour
     public TextMeshPro playerNameText;
     public GameObject floatingInfo;
     public SpriteRenderer PlayerSprite;
-    ColorSelectionUI colorSelectionUI = new ColorSelectionUI();
+    public ColorSelectionUI colorSelectionUI;
 
     [SyncVar(hook = nameof(OnNameChanged))]
     public string playerName;
@@ -36,8 +36,8 @@ public class PlayerFloatingName : NetworkBehaviour
         floatingInfo.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
         string name = PlayerNameInput.DisplayName;
-        Color UISelectedColor = colorSelectionUI.selectedColor;
-        PlayerColor = UISelectedColor;
+       
+        PlayerColor = new Color(PlayerPrefs.GetFloat("PlayerColorR", 1f), PlayerPrefs.GetFloat("PlayerColorG", 1f), PlayerPrefs.GetFloat("PlayerColorB", 1f), PlayerPrefs.GetFloat("PlayerColorA", 1f));
 
         CmdSetupPlayerName(name);
         CmdSetupPlayerColor(PlayerColor);
@@ -79,6 +79,7 @@ public class PlayerFloatingName : NetworkBehaviour
     private void Start()
     {
         OnStartLocalPlayer();
+        colorSelectionUI = (ColorSelectionUI)FindAnyObjectByType(typeof(ColorSelectionUI));
       
     }
     void Update()
