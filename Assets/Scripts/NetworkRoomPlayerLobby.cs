@@ -15,6 +15,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     [SyncVar(hook = nameof(HandleDisplayNameChanged))]
     public string DisplayName = "Loading...";
+    [SyncVar(hook = nameof(HandleDisplayColorChanged))]
+    public Color DisplayColor = new Color();
     [SyncVar(hook = nameof(HandleReadyStateChanged))]
     public bool isReady = false;
 
@@ -44,6 +46,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public override void OnStartAuthority()
     {
         CmdSetDisplayName(PlayerNameInput.DisplayName);    //set the display name of the player
+        CmdSetDisplayColor(ColorSelectionUI.DisplayColor);
         LobbyUI.SetActive(true);
 
     }
@@ -61,7 +64,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
        
     public void HandleReadyStateChanged(bool _, bool newVal) => UpdateDisplay();
     public void HandleDisplayNameChanged(string _, string newVal) => UpdateDisplay();
-
+    public void HandleDisplayColorChanged(Color _, Color newVal) => UpdateDisplay();
     private void UpdateDisplay()
     {
         if (!isOwned)                //hasAuthority is renamed as isOwnwd
@@ -101,6 +104,12 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public void CmdSetDisplayName(string displayName)
     {
         DisplayName = displayName;
+    }
+
+    [Command]
+    public void CmdSetDisplayColor(Color displayColor)
+    {
+        DisplayColor = displayColor;
     }
 
     [Command]

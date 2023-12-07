@@ -36,11 +36,11 @@ public class PlayerFloatingName : NetworkBehaviour
         floatingInfo.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
         string name = PlayerNameInput.DisplayName;
-       
-        PlayerColor = new Color(PlayerPrefs.GetFloat("PlayerColorR", 1f), PlayerPrefs.GetFloat("PlayerColorG", 1f), PlayerPrefs.GetFloat("PlayerColorB", 1f), PlayerPrefs.GetFloat("PlayerColorA", 1f));
+
+        Color playerColor = ColorSelectionUI.DisplayColor;
 
         CmdSetupPlayerName(name);
-        CmdSetupPlayerColor(PlayerColor);
+        CmdSetupPlayerColor(playerColor);
     }
 
     [Command]

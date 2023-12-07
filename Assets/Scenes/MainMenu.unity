@@ -1656,7 +1656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1262712109
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1730,7 +1730,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNameInputField: {fileID: 1851629871}
   SubmitBtn: {fileID: 1435505059}
-  colorSelectionUI: {fileID: 0}
   ColorPanel: {fileID: 0}
 --- !u!1001 &1292179916
 PrefabInstance:
@@ -3477,7 +3476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 66723644790249107, guid: 2079e8aae0da7014ca0788d8198267bb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1039902879922640154, guid: 2079e8aae0da7014ca0788d8198267bb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3526,6 +3525,10 @@ PrefabInstance:
     - target: {fileID: 3549056085904773680, guid: 2079e8aae0da7014ca0788d8198267bb, type: 3}
       propertyPath: serverOnly
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7463165487336758553, guid: 2079e8aae0da7014ca0788d8198267bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

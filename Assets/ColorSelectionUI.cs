@@ -16,6 +16,9 @@ public class ColorSelectionUI : NetworkBehaviour
     [SerializeField]
     private GameObject ColorPanel = null;
 
+    public static Color DisplayColor { get; private set; }
+    private  string[] PlayerPrefsNameKey = new string[]{"PlayerColorR", "PlayerColorG", "PlayerColorB", "PlayerColorA"};
+
     private void Start()
     {
         selectedColor = colorPreviewImage.color;
@@ -36,6 +39,7 @@ public class ColorSelectionUI : NetworkBehaviour
         PlayerPrefs.SetFloat("PlayerColorG", selectedColor.g);
         PlayerPrefs.SetFloat("PlayerColorB", selectedColor.b);
         PlayerPrefs.SetFloat("PlayerColorA", selectedColor.a);
+        DisplayColor = _color;
     }
 
     public void OnSetColorButtonClick()
