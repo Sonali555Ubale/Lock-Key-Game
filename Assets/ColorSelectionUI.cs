@@ -8,7 +8,8 @@ public class ColorSelectionUI : NetworkBehaviour
     public Image colorPreviewImage;
     public Button[] colorButtons;
 
-    private Color selectedColor = Color.white;
+    public Color selectedColor = Color.white;
+   
 
     [Header("Color Selection")]
     [SerializeField] private ColorSelectionUI colorSelectionUI = null;
@@ -17,22 +18,33 @@ public class ColorSelectionUI : NetworkBehaviour
 
     private void Start()
     {
+        selectedColor = colorPreviewImage.color;
         // Initialize color buttons with click events
         foreach (Button button in colorButtons)
         {
             button.onClick.AddListener(() => OnColorButtonClick(button.GetComponent<Image>().color));
         }
+
     }
 
-    private void OnColorButtonClick(Color color)
+    public void OnColorButtonClick(Color _color)
     {
         // Set the selected color when a color button is clicked
-        selectedColor = color;
-        colorPreviewImage.color = color;
+        selectedColor = _color;
+        colorPreviewImage.color = _color;
+    }
+
+    public void OnSetColorButtonClick()
+    {
+        selectedColor = colorPreviewImage.color;
+        Debug.Log("colorPreviewImage Colllooor:::" +selectedColor);
+        GetSelectedColor();
     }
 
     public Color GetSelectedColor()
     {
+       
+        Debug.Log("colorPreviewImage Colllooor!!!!!" + selectedColor);
         return selectedColor;
     }
 }

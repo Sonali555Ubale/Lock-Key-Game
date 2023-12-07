@@ -169,7 +169,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: fdf30e459eab11544b011edb22d52e94, type: 3}
-  m_Color: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
+  m_Color: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -350,7 +350,9 @@ MonoBehaviour:
   syncInterval: 0
   playerNameText: {fileID: 8403206960709314126}
   floatingInfo: {fileID: 5881405556973656928}
+  PlayerSprite: {fileID: 3404631934944584643}
   playerName: Sonali
+  PlayerColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &5881405556973656928
 GameObject:
   m_ObjectHideFlags: 0

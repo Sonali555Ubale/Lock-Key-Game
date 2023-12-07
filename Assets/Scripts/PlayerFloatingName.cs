@@ -8,16 +8,25 @@ public class PlayerFloatingName : NetworkBehaviour
 {
     public TextMeshPro playerNameText;
     public GameObject floatingInfo;
+    public SpriteRenderer PlayerSprite;
+    ColorSelectionUI colorSelectionUI = new ColorSelectionUI();
 
     [SyncVar(hook = nameof(OnNameChanged))]
     public string playerName;
+    [SyncVar(hook = nameof(OnColorChanged))]
+    public Color PlayerColor;
 
     void OnNameChanged(string _Old, string _New)
     {
         playerNameText.text = _New;
-        // playerNameText.text = playerName;
     }
 
+    void OnColorChanged(Color _Old, Color _New)
+    {
+        PlayerColor = _New;
+        PlayerSprite.color = PlayerColor;
+        Debug.Log("Selected Color: " + _New);
+    }
     public override void OnStartLocalPlayer()
     {
         Camera.main.transform.SetParent(transform);
@@ -26,17 +35,21 @@ public class PlayerFloatingName : NetworkBehaviour
         floatingInfo.transform.localPosition = new Vector3(0, -0.3f, 0.6f);
         floatingInfo.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
-       // string name = "Player" + Random.Range(100, 999);
         string name = PlayerNameInput.DisplayName;
-        CmdSetupPlayer(name);
+        Color UISelectedColor = colorSelectionUI.selectedColor;
+        PlayerColor = UISelectedColor;
+
+        CmdSetupPlayerName(name);
+        CmdSetupPlayerColor(PlayerColor);
     }
 
     [Command]
-    public void CmdSetupPlayer(string _name)
+    public void CmdSetupPlayerName(string _name)
     {
         // player info sent to server, then server updates sync vars which handles it on all clients
         playerName = _name;
         playerNameText.text = _name;
+      
         RpcUpdatePlayerName(_name);
     }
 
@@ -46,10 +59,27 @@ public class PlayerFloatingName : NetworkBehaviour
         playerNameText.text = _name; // Update the 3D text UI with the player's name for all clients
     }
 
+    [Command]
+    public void CmdSetupPlayerColor(Color _color)
+    {
+        PlayerColor = _color;
+        PlayerSprite.color = _color;
+
+        RpcUpdatePlayerColor( _color);
+    }
+
+    [ClientRpc]
+    void RpcUpdatePlayerColor(Color _color)
+    {
+       PlayerSprite.color = _color;
+    }
+
+
+
     private void Start()
     {
         OnStartLocalPlayer();
-        floatingInfo.gameObject.transform.SetPositionAndRotation(floatingInfo.transform.position, Quaternion.identity);
+      
     }
     void Update()
     {
