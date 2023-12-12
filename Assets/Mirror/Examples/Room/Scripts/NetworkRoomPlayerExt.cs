@@ -23,6 +23,7 @@ namespace Mirror.Examples.NetworkRoom
         public override void IndexChanged(int oldIndex, int newIndex)
         {
             //Debug.Log($"IndexChanged {newIndex}");
+
         }
 
         public override void ReadyStateChanged(bool oldReadyState, bool newReadyState)

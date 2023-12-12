@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 public class ColorSelectionUI : NetworkBehaviour
 {
@@ -9,10 +10,9 @@ public class ColorSelectionUI : NetworkBehaviour
     public Button[] colorButtons;
 
     public Color selectedColor = Color.red;
-   
 
     [Header("Color Selection")]
-    [SerializeField] private ColorSelectionUI colorSelectionUI = null;
+    [SerializeField] public ColorSelectionUI colorSelectionUI = null;
     [SerializeField]
     private GameObject ColorPanel = null;
 
@@ -44,7 +44,8 @@ public class ColorSelectionUI : NetworkBehaviour
 
     public void OnSetColorButtonClick()
     {
-        selectedColor = colorPreviewImage.color;
+        //selectedColor = colorPreview
+        SceneManager.LoadScene("GameScene");
         Debug.Log("colorPreviewImage Colllooor:::" +selectedColor);
         GetSelectedColor();
     }

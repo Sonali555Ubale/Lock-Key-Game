@@ -34,7 +34,9 @@ namespace Mirror
         /// </summary>
         [Tooltip("Diagnostic index of the player, e.g. Player1, Player2, etc.")]
         [SyncVar(hook = nameof(IndexChanged))]
-        public int index;
+           public int index;
+
+      
 
         #region Unity Callbacks
 
@@ -81,6 +83,7 @@ namespace Mirror
         public void CmdChangeReadyState(bool readyState)
         {
             readyToBegin = readyState;
+         
             NetworkRoomManager room = NetworkManager.singleton as NetworkRoomManager;
             if (room != null)
             {
@@ -98,7 +101,7 @@ namespace Mirror
         /// <param name="oldIndex">The old index value</param>
         /// <param name="newIndex">The new index value</param>
         public virtual void IndexChanged(int oldIndex, int newIndex) {}
-
+      
         /// <summary>
         /// This is a hook that is invoked on clients when a RoomPlayer switches between ready or not ready.
         /// <para>This function is called when the a client player calls CmdChangeReadyState.</para>
@@ -121,6 +124,7 @@ namespace Mirror
         /// </summary>
         public virtual void OnClientExitRoom() {}
 
+       
         #endregion
 
         #region Optional UI
@@ -142,10 +146,8 @@ namespace Mirror
 
                 if (!Utils.IsSceneActive(room.RoomScene))
                     return;
-
                 DrawPlayerReadyState();
                 DrawPlayerReadyButton();
-               
             }
         }
 
@@ -155,7 +157,6 @@ namespace Mirror
            
            GUI.color = Color.white;
             GUILayout.Label($"Player [{index + 1}]" );
-
             if (readyToBegin)
                 GUILayout.Label("Ready");
             else
@@ -188,9 +189,11 @@ namespace Mirror
                 else
                 {
                     if (GUILayout.Button("Ready"))
+                    {
                         CmdChangeReadyState(true);
+                       
+                    }
                 }
-
                 GUILayout.EndArea();
             }
         }
