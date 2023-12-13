@@ -31,17 +31,7 @@ public class TimerFromserver : NetworkBehaviour
         StartCoroutine(updateTime());
     }
 
-    public void Update()
-    {
-        // This is not needed anymore, as we are using a SyncVar with a hook
-        //if (Sec <= 0)
-        //{
-        //    TimeLeft.text = "Time's Up";
-        //    StopCoroutine(updateTime());
-        //    SceneManager.LoadScene(2);
-        //}
-    }
-
+   
     // The SyncVar hook to handle time updates
     private void OnTimeChanged(int oldTime, int newTime)
     {
