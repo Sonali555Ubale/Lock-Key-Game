@@ -9,7 +9,11 @@ public class ColorSelectionUI : NetworkBehaviour
     public Image colorPreviewImage;
     public Button[] colorButtons;
 
+    
+    public GameObject playerPrefab;
+    
     public Color selectedColor = Color.red;
+
 
     [Header("Color Selection")]
     [SerializeField] public ColorSelectionUI colorSelectionUI = null;
@@ -45,9 +49,12 @@ public class ColorSelectionUI : NetworkBehaviour
     public void OnSetColorButtonClick()
     {
         //selectedColor = colorPreview
-        SceneManager.LoadScene("GameScene");
+       // SceneManager.LoadScene("GameScene");
         Debug.Log("colorPreviewImage Colllooor:::" +selectedColor);
         GetSelectedColor();
+        playerPrefab.GetComponent<NetworkRoomPlayer>().showRoomGUI = true;
+
+
     }
 
     public Color GetSelectedColor()

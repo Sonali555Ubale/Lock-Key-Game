@@ -14,7 +14,7 @@ public class PlayerNameInput : MonoBehaviour
     [SerializeField]
     private Button SubmitBtn = null;
     [SerializeField]
-    private GameObject ColorPanel;
+    private GameObject CustomCanvasHUD;
 
     public static string DisplayName { get; private set; }
     private const string PlayerPrefsNameKey = "PlayerName";
@@ -43,7 +43,7 @@ public class PlayerNameInput : MonoBehaviour
     {
         DisplayName = playerNameInputField.text;
         PlayerPrefs.SetString(PlayerPrefsNameKey, DisplayName);
-      //  ColorPanel.SetActive(true);
+        CustomCanvasHUD.SetActive(true);
         //SceneManager.LoadScene("ColorSelectionScene");
        //NetworkRoomPlayer.SetDisplayName(DisplayName);
     }

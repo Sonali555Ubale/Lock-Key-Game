@@ -7,7 +7,8 @@ public class CustomCanvasHUD : MonoBehaviour
 {
 	public GameObject PanelStart;
 	public GameObject PanelStop;
-
+    public GameObject ColorPanel;
+    
 	public Button buttonHost, buttonServer, buttonClient, buttonStop;
 
 	public TMP_InputField inputFieldAddress;
@@ -41,7 +42,8 @@ public class CustomCanvasHUD : MonoBehaviour
 	public void ButtonHost()
 	{
 		NetworkManager.singleton.StartHost();
-		SetupCanvas();
+
+        SetupCanvas();
 	}
 
     public void ButtonServer()

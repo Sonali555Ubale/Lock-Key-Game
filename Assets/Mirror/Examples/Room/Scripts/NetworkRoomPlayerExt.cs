@@ -33,6 +33,7 @@ namespace Mirror.Examples.NetworkRoom
 
         public override void OnGUI()
         {
+            
             base.OnGUI();
         }
     }
