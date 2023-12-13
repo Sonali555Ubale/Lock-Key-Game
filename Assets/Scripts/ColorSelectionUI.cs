@@ -8,12 +8,8 @@ public class ColorSelectionUI : NetworkBehaviour
 
     public Image colorPreviewImage;
     public Button[] colorButtons;
-
-    
-    public GameObject playerPrefab;
-    
+        
     public Color selectedColor = Color.red;
-
 
     [Header("Color Selection")]
     [SerializeField] public ColorSelectionUI colorSelectionUI = null;
@@ -30,6 +26,7 @@ public class ColorSelectionUI : NetworkBehaviour
         foreach (Button button in colorButtons)
         {
             button.onClick.AddListener(() => OnColorButtonClick(button.GetComponent<Image>().color));
+            button.onClick.AddListener(() => OnClickInteractable(button));
         }
 
     }
@@ -37,6 +34,7 @@ public class ColorSelectionUI : NetworkBehaviour
     public void OnColorButtonClick(Color _color)
     {
         // Set the selected color when a color button is clicked
+       
         selectedColor = _color;
         colorPreviewImage.color = _color;
         PlayerPrefs.SetFloat("PlayerColorR", selectedColor.r);
@@ -45,21 +43,22 @@ public class ColorSelectionUI : NetworkBehaviour
         PlayerPrefs.SetFloat("PlayerColorA", selectedColor.a);
         DisplayColor = _color;
     }
+    public void OnClickInteractable(Button button)
+    {
+        
+    }
 
     public void OnSetColorButtonClick()
     {
         //selectedColor = colorPreview
-       // SceneManager.LoadScene("GameScene");
+        // SceneManager.LoadScene("GameScene");
+      
         Debug.Log("colorPreviewImage Colllooor:::" +selectedColor);
         GetSelectedColor();
-        playerPrefab.GetComponent<NetworkRoomPlayer>().showRoomGUI = true;
-
-
     }
 
     public Color GetSelectedColor()
     {
-       
         Debug.Log("colorPreviewImage Colllooor!!!!!" + selectedColor);
         return selectedColor;
     }

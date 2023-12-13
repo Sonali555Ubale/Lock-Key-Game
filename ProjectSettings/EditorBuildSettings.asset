@@ -11,8 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestTemplates/RoomScene.unity
     guid: 322235cbcdc1a1b45b80113cf1f210e5
-  - enabled: 1
-    path: Assets/Scenes/TestTemplates/RoomLobby.unity
+  - enabled: 0
+    path: Assets/Scenes/Room_Lobby.unity
     guid: 8bbe254399c7f474d876de9ce512201c
   - enabled: 1
     path: Assets/Scenes/GameScene.unity

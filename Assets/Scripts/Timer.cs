@@ -26,7 +26,7 @@ public class Timer : NetworkBehaviour
         if(Sec>0)
         TOTAL_SEC = Sec;
 
-        StartCoroutine(second());
+        StartCoroutine(updateTime());
 
     }
 
@@ -37,7 +37,7 @@ public class Timer : NetworkBehaviour
         {
             TimeLeft.text = "Time's Up";
           
-          StopCoroutine(second());
+          StopCoroutine(updateTime());
             SceneManager.LoadScene(2);
         }
 
@@ -50,15 +50,16 @@ public class Timer : NetworkBehaviour
 
     }
 
-    IEnumerator second()
+    IEnumerator updateTime()
     {
         yield return new WaitForSeconds(1f);
+        yield return new WaitForFixedUpdate();
         if (Sec > 0)
             Sec--;
 
         TimeLeft.text = Sec.ToString();
         UpdateLoadingUI(Sec);
-        StartCoroutine(second());
+        StartCoroutine(updateTime());
 
         if (isServer)
         {

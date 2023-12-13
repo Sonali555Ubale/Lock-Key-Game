@@ -4616,7 +4616,7 @@ MonoBehaviour:
   timeInterpolationGui: 0
   showRoomGUI: 1
   minPlayers: 1
-  roomPlayerPrefab: {fileID: 3981562480574701867, guid: 4b181b893d6c7224dbf719cecae4e5fd, type: 3}
+  roomPlayerPrefab: {fileID: 8489982530141600774, guid: 4b181b893d6c7224dbf719cecae4e5fd, type: 3}
   RoomScene: Assets/Scenes/TestTemplates/RoomScene.unity
   GameplayScene: Assets/Scenes/GameScene.unity
   _allPlayersReady: 0
@@ -6104,7 +6104,6 @@ MonoBehaviour:
   - {fileID: 2117095569}
   - {fileID: 1216442274}
   - {fileID: 277018908}
-  playerPrefab: {fileID: 0}
   selectedColor: {r: 1, g: 1, b: 1, a: 1}
   colorSelectionUI: {fileID: 1853063474}
   ColorPanel: {fileID: 1853063472}

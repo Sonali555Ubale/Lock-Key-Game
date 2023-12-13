@@ -33,8 +33,32 @@ namespace Mirror.Examples.NetworkRoom
 
         public override void OnGUI()
         {
-            
-            base.OnGUI();
+            if (!showRoomGUI)
+                return;
+            GUI.backgroundColor = Color.white;
+
+            NetworkRoomManager room = NetworkManager.singleton as NetworkRoomManager;
+            if (room)
+            {
+                if (!room.showRoomGUI)
+                    return;
+
+                if (!Utils.IsSceneActive(room.RoomScene))
+                    return;
+                DrawPlayerReadyState();
+                DrawPlayerReadyButton();
+            }
         }
+
+        public void DrawPlayerReadyState()
+        {
+           
+        }
+
+        public void DrawPlayerReadyButton()
+        {
+
+        }
+
     }
 }
