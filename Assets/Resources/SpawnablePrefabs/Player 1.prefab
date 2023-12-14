@@ -351,6 +351,7 @@ MonoBehaviour:
   playerNameText: {fileID: 8403206960709314126}
   floatingInfo: {fileID: 5881405556973656928}
   PlayerSprite: {fileID: 3404631934944584643}
+  colorSelectionUI: {fileID: 0}
   playerName: Sonali
   PlayerColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &5881405556973656928
@@ -661,8 +662,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4281808695
+  m_fontColor: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -683,9 +684,9 @@ MonoBehaviour:
   m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 1
-  m_fontSizeMax: 5
-  m_fontStyle: 17
+  m_fontSizeMin: 5
+  m_fontSizeMax: 8
+  m_fontStyle: 33
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
