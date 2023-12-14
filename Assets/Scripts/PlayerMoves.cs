@@ -12,9 +12,11 @@ public class PlayerMoves : NetworkBehaviour
     [SerializeField]
     private SpriteRenderer HappyEmogy;
     [SerializeField]
-    public Sprite SadEmogySprite;
+    private Sprite SadEmogySprite;
     [SerializeField]
-    public Sprite HappyEmogySprite;
+    private Sprite HappyEmogySprite;
+    [SerializeField]
+    private GameObject Bullet;
 
     [SerializeField]
     GameObject DennerCrown;
@@ -30,7 +32,12 @@ public class PlayerMoves : NetworkBehaviour
     [SyncVar(hook = nameof(setPlayerEmogy))]
     public bool isHappy = true;
 
-    // private bool isFreeze = false;
+    [SyncVar(hook = nameof(OnUnlockTimerChanged))]
+    private float unlockTimer = 0f;
+   
+    private bool isUnlocking = false;
+
+
     private void Start()
     {
         CmdSetCrown(isServer);
@@ -39,10 +46,13 @@ public class PlayerMoves : NetworkBehaviour
     void Update()
     {
         DennerCrown.SetActive(isHost);
-        
+        Bullet.SetActive(isHost);
+
         LockedPlayerAura.SetActive(isLocked && !isHost);
         SwitchFaceExpression();
         movePlayer();
+
+        unlockPlayer();
 
     }
 
@@ -95,11 +105,36 @@ public class PlayerMoves : NetworkBehaviour
         if (isLocked && !isHost)
 
             HappyEmogy.sprite = SadEmogySprite;
-        else
+        else 
             HappyEmogy.sprite = HappyEmogySprite;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnUnlockTimerChanged(float oldValue, float newValue)
+    {
+        unlockTimer = newValue;
+    }
+    public void unlockPlayer()
+    {
+        if (isUnlocking)
+        {
+            unlockTimer += Time.deltaTime;
+            Debug.Log("Unlock Timer is::" + unlockTimer);
+
+            if (unlockTimer >= 5f)
+            {
+                // Unlock the player's movement
+                isLocked = false;
+                CmdSetPlayerAura(false);
+                CmdSetPlayerEmogy(true);
+
+                // Reset the timer and unlocking state
+                unlockTimer = 0f;
+                isUnlocking = false;
+            }
+        }
+    }
+
+    /*private void OnCollisionEnter2D(Collision2D collision)
     {
         //on collision isHost condition checked and Set the CmdSetPlayerAura value
         if (collision.gameObject.tag == "Player")
@@ -108,7 +143,44 @@ public class PlayerMoves : NetworkBehaviour
 
             CmdSetPlayerEmogy(collision.gameObject.GetComponent<PlayerMoves>().isHost && isLocalPlayer);
         }
-    }           
+    }  */
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "bullet")
+        {
+            CmdSetPlayerAura(collision.gameObject.GetComponent<PlayerMoves>().isHost && isLocalPlayer);
+
+            CmdSetPlayerEmogy(collision.gameObject.GetComponent<PlayerMoves>().isHost && isLocalPlayer);
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        // Check if the other player is not the host
+        if (collision.gameObject.CompareTag("Player") && !isLocked && isLocalPlayer)
+        {
+
+            PlayerMoves otherPlayer = collision.gameObject.GetComponent<PlayerMoves>();
+            if (collision.gameObject.GetComponent<PlayerMoves>().isClientOnly)
+            {
+                isUnlocking = true;
+
+            }
+        }
+    }
+
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        // Reset the unlocking process when the collision ends
+        if (collision.gameObject.CompareTag("Player") && !isLocked && isLocalPlayer)
+        {
+            isUnlocking = false;
+            unlockTimer = 0f;
+        }
+    }
+
+
+   
 
 }
