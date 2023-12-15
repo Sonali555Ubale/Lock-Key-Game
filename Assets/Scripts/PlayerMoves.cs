@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerMoves : NetworkBehaviour
 {
@@ -35,7 +36,9 @@ public class PlayerMoves : NetworkBehaviour
    
     private bool isUnlocking = false;
 
-   
+   /* public Image LoadingImage;
+    float FillAmount;*/
+
 
     private PlayerMoves hostPlayer;
     private void Start()
@@ -122,12 +125,13 @@ public class PlayerMoves : NetworkBehaviour
             Debug.Log("Unlock Timer is::" + unlockTimer);
 
             // Check if the timer has reached 5 seconds and the player is not the host
-            if (unlockTimer >= 5f && !isHost)
+            if (unlockTimer >= 3.0f && !isHost && isClient && isLocked)
             {
                 // Unlock the player's movement
                 isLocked = false;
                 CmdSetPlayerAura(false);
                 CmdSetPlayerEmogy(true);
+              //  UnlockTimer.Instance.LoadingImage.gameObject.SetActive(true);
 
                 // Reset the timer and unlocking state
                 unlockTimer = 0f;
