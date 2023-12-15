@@ -15,9 +15,7 @@ public class PlayerMoves : NetworkBehaviour
     private Sprite SadEmogySprite;
     [SerializeField]
     private Sprite HappyEmogySprite;
-    [SerializeField]
-    private GameObject Bullet;
-
+ 
     [SerializeField]
     GameObject DennerCrown;
     [SerializeField]
@@ -37,22 +35,25 @@ public class PlayerMoves : NetworkBehaviour
    
     private bool isUnlocking = false;
 
+   
 
+    private PlayerMoves hostPlayer;
     private void Start()
     {
         CmdSetCrown(isServer);
-      
+        // Find the host player
+        hostPlayer = FindObjectOfType<PlayerMoves>();
+
     }
     void Update()
     {
         DennerCrown.SetActive(isHost);
-        Bullet.SetActive(isHost);
-
+        //  Bullet.SetActive(isHost);
+        
         LockedPlayerAura.SetActive(isLocked && !isHost);
         SwitchFaceExpression();
         movePlayer();
 
-        unlockPlayer();
 
     }
 
@@ -109,7 +110,7 @@ public class PlayerMoves : NetworkBehaviour
             HappyEmogy.sprite = HappyEmogySprite;
     }
 
-    private void OnUnlockTimerChanged(float oldValue, float newValue)
+    private void OnUnlockTimerChanged(float _, float newValue)
     {
         unlockTimer = newValue;
     }
@@ -120,7 +121,8 @@ public class PlayerMoves : NetworkBehaviour
             unlockTimer += Time.deltaTime;
             Debug.Log("Unlock Timer is::" + unlockTimer);
 
-            if (unlockTimer >= 5f)
+            // Check if the timer has reached 5 seconds and the player is not the host
+            if (unlockTimer >= 5f && !isHost)
             {
                 // Unlock the player's movement
                 isLocked = false;
@@ -145,35 +147,32 @@ public class PlayerMoves : NetworkBehaviour
         }
     }  */
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "bullet")
-        {
-            CmdSetPlayerAura(collision.gameObject.GetComponent<PlayerMoves>().isHost && isLocalPlayer);
-
-            CmdSetPlayerEmogy(collision.gameObject.GetComponent<PlayerMoves>().isHost && isLocalPlayer);
-        }
-    }
+   
     private void OnCollisionStay2D(Collision2D collision)
     {
         // Check if the other player is not the host
-        if (collision.gameObject.CompareTag("Player") && !isLocked && isLocalPlayer)
+        if (collision.gameObject.CompareTag("Player") && collision.gameObject.GetComponent<PlayerMoves>().isHost && isLocalPlayer)
         {
+           // isLocked = true;
+               CmdSetPlayerAura(true);
+            CmdSetPlayerEmogy(false);
 
-            PlayerMoves otherPlayer = collision.gameObject.GetComponent<PlayerMoves>();
-            if (collision.gameObject.GetComponent<PlayerMoves>().isClientOnly)
-            {
-                isUnlocking = true;
-
-            }
+              //  CmdSetPlayerEmogy(collision.gameObject.GetComponent<PlayerMoves>().isHost && isLocalPlayer);
         }
+        if (collision.gameObject.CompareTag("Player") && !isLocalPlayer && !isHost)
+        {
+            isUnlocking = true;
+             unlockPlayer();
+           
+        }
+       
     }
 
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         // Reset the unlocking process when the collision ends
-        if (collision.gameObject.CompareTag("Player") && !isLocked && isLocalPlayer)
+        if (collision.gameObject.CompareTag("Player") && !isLocked && isLocalPlayer && !isHost)
         {
             isUnlocking = false;
             unlockTimer = 0f;
@@ -181,6 +180,6 @@ public class PlayerMoves : NetworkBehaviour
     }
 
 
-   
+
 
 }
