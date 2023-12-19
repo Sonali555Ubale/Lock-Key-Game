@@ -64,8 +64,8 @@ public class PlayerMoves : NetworkBehaviour
     {
         //checking if the state is freeze and move if it is false
         if (isLocked && !isHost || !isLocalPlayer) return;              
-                HorizontalMove = Input.GetAxis("Horizontal") * 2.5f * Time.deltaTime;
-                VerticalMove = Input.GetAxis("Vertical") * 2.5f * Time.deltaTime;
+                HorizontalMove = Input.GetAxis("Horizontal") * 3.0f * Time.deltaTime;
+                VerticalMove = Input.GetAxis("Vertical") * 3.0f * Time.deltaTime;
                 Vector3 b = new Vector3(HorizontalMove, VerticalMove, 0f);
                 transform.position = transform.position + b;
     }

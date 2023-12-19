@@ -52,12 +52,12 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     }
     public override void OnStartClient()
     {
-        Room.RoomPlayer.Add(this);  //update room player list
+        Room.RoomPlayers.Add(this);  //update room player list
         UpdateDisplay();
     }
     public override void OnStopClient()
     {
-        Room.RoomPlayer.Remove(this);
+        Room.RoomPlayers.Remove(this);
 
         UpdateDisplay();
     }
@@ -67,14 +67,14 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public void HandleDisplayColorChanged(Color _, Color newVal) => UpdateDisplay();
     private void UpdateDisplay()
     {
-        if (!isOwned)                //hasAuthority is renamed as isOwnwd
+        if (!isOwned && !hasAuthority)                //hasAuthority is renamed as isOwnwd
         {
-            foreach (var player in Room.RoomPlayer)        //if the player does not bolongs to us or does not have authority then check which players having authoryty and Update the DisplayName
+            foreach (var player in Room.RoomPlayers)    //if the player does not bolongs to us or does not have authority then check which players having authoryty and Update the DisplayName
             {
                 if (player.isOwned )
                 {
                     player.UpdateDisplay();
-                   // player.netIdentity.AssignClientAuthority(connectionToClient);
+                    player.netIdentity.AssignClientAuthority(connectionToClient);
                     break;
                 }
             }
@@ -87,10 +87,10 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             PlayerReadyTxt[i].text = string.Empty;
         }
 
-        for (int i = 0; i < Room.RoomPlayer.Count; i++)
+        for (int i = 0; i < Room.RoomPlayers.Count; i++)
         {
-            PlayerNameTxt[i].text = Room.RoomPlayer[i].DisplayName;
-            PlayerReadyTxt[i].text = Room.RoomPlayer[i].isReady ? "<color=green>Ready</color>" : "<color=red>Not Ready</color>";
+            PlayerNameTxt[i].text = Room.RoomPlayers[i].DisplayName;
+            PlayerReadyTxt[i].text = Room.RoomPlayers[i].isReady ? "<color=green>Ready</color>" : "<color=red>Not Ready</color>";
         }
     }
 
@@ -112,19 +112,31 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         DisplayColor = displayColor;
     }
 
-    [Command]
-    public void CmdReadyUp()    //called when Ui Ready button is clicked
+    public void OnReadyButtonClick()
     {
-       
-        isReady = !isReady;   //on off toggle of ready btn
-     
+        isReady = true;
+        CmdReadyUp(isReady);
+    }
+
+    [Command]
+    private void CmdReadyUp(bool isReady)    //called when Ui Ready button is clicked
+    {
+      //  isReady = isReady;
+       // isReady = !isReady;   //on off toggle of ready btn
         Room.NotifyReadyState();
+        Debug.Log("PlayerReadyyyyy!!!!");
+
+          NetworkRoomManager room = NetworkManager.singleton as NetworkRoomManager;
+        if (room != null)
+        {
+            room.ReadyStatusChanged();
+        }
     }
 
     [Command]
     public void CmdStartGame()             //called when Ui start button clicked
     {
-        if (Room.RoomPlayer[0].connectionToClient != connectionToClient) { return; } //if room player does not have authority then return else Start game.
+        if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; } //if room player does not have authority then return else Start game.
        
         Room.StartGame();
               

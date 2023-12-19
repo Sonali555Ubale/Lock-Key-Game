@@ -23,7 +23,7 @@ public class NetworkManagerLobby : NetworkManager
     public static event Action<NetworkConnection> OnServerReadied;
     public static event Action OnServerStopped;
 
-    public List<NetworkRoomPlayerLobby> RoomPlayer { get; } = new List<NetworkRoomPlayerLobby>(); //stores name of the diff. room player
+    public List<NetworkRoomPlayerLobby> RoomPlayers { get; } = new List<NetworkRoomPlayerLobby>(); //stores name of the diff. room player
     public List<NetworkGamePlayerLobby> GamePlayers { get; } = new List<NetworkGamePlayerLobby>();
 
     public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
@@ -70,7 +70,7 @@ public class NetworkManagerLobby : NetworkManager
         if(conn.identity != null)
         {                                                                       //access the list in the NetworkRoomPlayerLobby and remove that player form the active players
             var player = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
-            RoomPlayer.Remove(player);
+            RoomPlayers.Remove(player);
             NotifyReadyState();
         }
         base.OnServerDisconnect(conn);
@@ -80,7 +80,7 @@ public class NetworkManagerLobby : NetworkManager
     {                                                               //called on the server when a client adds player with ClientScene.AddPlayer
         if (SceneManager.GetActiveScene().name == TestMenuScene)
         {
-            bool isDenner = RoomPlayer.Count == 0;               // 0th member of the list is the host or the leader
+            bool isDenner = RoomPlayers.Count == 0;               // 0th member of the list is the host or the leader
                                                                                         //when in the menu scene it spawns the player prefabs for connection
             NetworkRoomPlayerLobby roomPlayerInstance = Instantiate(roomPlayerPrefab);
             roomPlayerInstance.IsDenner = isDenner;
@@ -93,13 +93,13 @@ public class NetworkManagerLobby : NetworkManager
     public override void OnStopServer()
     {
         OnServerStopped?.Invoke();
-        RoomPlayer.Clear();
+        RoomPlayers.Clear();
         GamePlayers.Clear();
     }
 
     public void NotifyReadyState()
     {
-        foreach (var player in RoomPlayer)
+        foreach (var player in RoomPlayers)
         {
             player.handleReadyToStart(IsReadyToStart());
         }
@@ -109,7 +109,7 @@ public class NetworkManagerLobby : NetworkManager
     {
         if (numPlayers < minPlayers) { return false; }
 
-        foreach (var player in RoomPlayer)
+        foreach (var player in RoomPlayers)
         {
             if (!player.isReady) { return false; }
         }
@@ -131,11 +131,11 @@ public class NetworkManagerLobby : NetworkManager
     {
         if (SceneManager.GetActiveScene().name == TestMenuScene)
         {
-            for (int i = RoomPlayer.Count - 1; i >= 0; i--)
+            for (int i = RoomPlayers.Count - 1; i >= 0; i--)
             {
-                var conn = RoomPlayer[i].connectionToClient;
+                var conn = RoomPlayers[i].connectionToClient;
                 var gameplayerInstance = Instantiate(gamePlayerPrefab);
-                gameplayerInstance.SetDisplayName(RoomPlayer[i].DisplayName);
+                gameplayerInstance.SetDisplayName(RoomPlayers[i].DisplayName);
 
                 NetworkServer.Destroy(conn.identity.gameObject);
 
