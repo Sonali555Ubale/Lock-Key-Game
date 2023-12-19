@@ -2869,7 +2869,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  Sec: 12
+  Sec: 120
   LoadingImage: {fileID: 8700356283589845657}
   TimeLeft: {fileID: 8700356285428770056}
 --- !u!4 &707488770
