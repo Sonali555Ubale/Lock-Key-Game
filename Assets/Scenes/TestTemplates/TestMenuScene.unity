@@ -6105,9 +6105,9 @@ MonoBehaviour:
   - {fileID: 1216442274}
   - {fileID: 277018908}
   selectedColor: {r: 1, g: 1, b: 1, a: 1}
-  colorSelectionUI: {fileID: 1853063474}
   RoomPlayerPanel: {fileID: 0}
   ColorSelectionPanel: {fileID: 0}
+  isButtonInteracting: 0
 --- !u!114 &1853063475
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class ColorSelectionUI : NetworkBehaviour
@@ -13,8 +12,6 @@ public class ColorSelectionUI : NetworkBehaviour
 
     [Header("Color Selection")]
     [SerializeField]
-    public ColorSelectionUI colorSelectionUI = null;
-    [SerializeField]
     private GameObject RoomPlayerPanel;
     [SerializeField]
     private GameObject ColorSelectionPanel;
@@ -24,11 +21,11 @@ public class ColorSelectionUI : NetworkBehaviour
 
     public static Color DisplayColor { get; private set; }
 
-    private List<Color> selectedColors = new List<Color>(); // List to store selected colors
+    private Dictionary<Color, bool> colorAvailability = new Dictionary<Color, bool>();
 
     private void Start()
     {
-        selectedColor = colorPreviewImage.color;
+       
         ColorSelectionPanel.SetActive(true);
         RoomPlayerPanel.SetActive(false);
 
@@ -38,16 +35,28 @@ public class ColorSelectionUI : NetworkBehaviour
             Color buttonColor = button.GetComponent<Image>().color;
             button.onClick.AddListener(() => OnColorButtonClick(buttonColor));
         }
+
+        InitializeColorAvailability();
+    }
+
+    private void InitializeColorAvailability()
+    {
+        // Initialize color availability dictionary
+        foreach (Button button in colorButtons)
+        {
+            Color buttonColor = button.GetComponent<Image>().color;
+            colorAvailability[buttonColor] = true;
+        }
     }
 
     public void OnChoosingColor(bool _, bool newval)
     {
-        isButtonInteracting = newval;
+         isButtonInteracting = newval;
     }
 
     public void OnColorButtonClick(Color _color)
     {
-        if (!selectedColors.Contains(_color))
+        if (isButtonInteracting && colorAvailability.ContainsKey(_color))
         {
             // Set the selected color when a color button is clicked
             selectedColor = _color;
@@ -58,10 +67,31 @@ public class ColorSelectionUI : NetworkBehaviour
             PlayerPrefs.SetFloat("PlayerColorA", selectedColor.a);
             DisplayColor = _color;
 
-            // Add the selected color to the list and disable the button
-            selectedColors.Add(_color);
-            SetButtonInteractable(_color, false);
+            // Reserve the selected color
+            colorAvailability[_color] = false;
+
+            // Notify the server about the color selection
+            CmdSelectColor(_color);
         }
+    }
+
+    [Command]
+    private void CmdSelectColor(Color color)
+    {
+        selectedColor = color;
+        DisplayColor = color;
+
+        // colorAvailability[color] = false;
+        
+       RpcUpdateSelectedColor(color);   // Notify all clients about the color selection
+    }
+
+    [ClientRpc]
+    private void RpcUpdateSelectedColor(Color color)
+    {                           // Update the selected color on all clients
+        selectedColor = color;
+        DisplayColor = color;
+       // SetButtonInteractable(color, false);
     }
 
     private void SetButtonInteractable(Color color, bool interactable)
@@ -78,14 +108,14 @@ public class ColorSelectionUI : NetworkBehaviour
 
     public void OnSetColorButtonClick()
     {
+        if (!isOwned || !isLocalPlayer || isClient)
+        {
+            isButtonInteracting = false;                                              // Disable the selected color button on all clients
+            colorAvailability[selectedColor] = false;
+            SetButtonInteractable(selectedColor, false);
+        }
         // Activate the player panel and deactivate the color selection panel
-       // ColorSelectionPanel.SetActive(false);
-    //    RoomPlayerPanel.SetActive(true);
-        GetSelectedColor();
-    }
-
-    public Color GetSelectedColor()
-    {
-        return selectedColor;
+        // ColorSelectionPanel.SetActive(false);
+        // RoomPlayerPanel.SetActive(true);
     }
 }
