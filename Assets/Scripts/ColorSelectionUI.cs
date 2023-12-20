@@ -25,12 +25,10 @@ public class ColorSelectionUI : NetworkBehaviour
 
     private void Start()
     {
-        if (isServerOnly || !isClient)
-        {
-            ColorSelectionPanel.SetActive(false);
+       
+            ColorSelectionPanel.SetActive(true);
             RoomPlayerPanel.SetActive(false);
-        }
-        else ColorSelectionPanel.SetActive(true);
+       
 
 
         // Initialize color buttons with click events
