@@ -115,9 +115,11 @@ public class ColorSelectionUI : NetworkBehaviour
             isButtonInteracting = false;                                              // Disable the selected color button on all clients
             colorAvailability[selectedColor] = false;
             SetButtonInteractable(selectedColor, false);
+            ColorSelectionPanel.SetActive(false);
+            RoomPlayerPanel.SetActive(true);
         }
         // Activate the player panel and deactivate the color selection panel
-        // ColorSelectionPanel.SetActive(false);
-        // RoomPlayerPanel.SetActive(true);
+        // 
+        // 
     }
 }

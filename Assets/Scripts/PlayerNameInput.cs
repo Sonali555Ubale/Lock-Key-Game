@@ -19,6 +19,7 @@ public class PlayerNameInput : MonoBehaviour
     public static string DisplayName { get; private set; }
     private const string PlayerPrefsNameKey = "PlayerName";
 
+
     private void Start() => SetInputField();
     
 

@@ -55,24 +55,25 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         Room.RoomPlayers.Add(this);  //update room player list
         UpdateDisplay();
     }
-    public override void OnStopClient()
+   /* public override void OnStopClient()
     {
         Room.RoomPlayers.Remove(this);
 
         UpdateDisplay();
-    }
+    }*/
        
     public void HandleReadyStateChanged(bool _, bool newVal) => UpdateDisplay();
     public void HandleDisplayNameChanged(string _, string newVal) => UpdateDisplay();
     public void HandleDisplayColorChanged(Color _, Color newVal) => UpdateDisplay();
     private void UpdateDisplay()
     {
-        if (!isOwned && !hasAuthority)                //hasAuthority is renamed as isOwnwd
+        if (!isOwned )                //hasAuthority is renamed as isOwnwd
         {
             foreach (var player in Room.RoomPlayers)    //if the player does not bolongs to us or does not have authority then check which players having authoryty and Update the DisplayName
             {
                 if (player.isOwned )
                 {
+                  
                     player.UpdateDisplay();
                     player.netIdentity.AssignClientAuthority(connectionToClient);
                     break;
@@ -84,14 +85,18 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
        for (int i=0; i< PlayerNameTxt.Length;i++)
         {
             PlayerNameTxt[i].text = DisplayName;
-            PlayerReadyTxt[i].text = string.Empty;
+            PlayerReadyTxt[i].text = "Not Ready";
         }
 
         for (int i = 0; i < Room.RoomPlayers.Count; i++)
         {
-            PlayerNameTxt[i].text = Room.RoomPlayers[i].DisplayName;
-            PlayerReadyTxt[i].text = Room.RoomPlayers[i].isReady ? "<color=green>Ready</color>" : "<color=red>Not Ready</color>";
+            if (Room.RoomPlayers[i] != null)
+            {
+                PlayerNameTxt[i].text = Room.RoomPlayers[i].DisplayName;
+                PlayerReadyTxt[i].text = Room.RoomPlayers[i].isReady ? "<color=green>Ready</color>" : "<color=red>Not Ready</color>";
+            }
         }
+
     }
 
     public void handleReadyToStart(bool readyToStart)

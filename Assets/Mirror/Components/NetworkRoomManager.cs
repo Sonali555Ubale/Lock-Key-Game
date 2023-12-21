@@ -38,7 +38,8 @@ namespace Mirror
         [FormerlySerializedAs("m_RoomPlayerPrefab")]
         [SerializeField]
         [Tooltip("Prefab to use for the Room Player")]
-        public NetworkRoomPlayer roomPlayerPrefab;
+        public GameObject roomPlayerPrefab;
+       // public NetworkRoomPlayerExt roomPlayerPrefab;
 
         /// <summary>
         /// The scene to use for the room. This is similar to the offlineScene of the NetworkManager.
@@ -678,8 +679,19 @@ namespace Mirror
 
             if (Utils.IsSceneActive(RoomScene))
                 GUI.Box(new Rect(10f, 180f, 820f, 150f), "PLAYERS");
-        }
 
+        }
+        public void startGame()
+        {
+            if (SceneManager.GetActiveScene().name == RoomScene)
+            {
+
+                if (!allPlayersReady) { return; }
+
+                ServerChangeScene(GameplayScene);
+            }
+
+        }
         #endregion
     }
 }

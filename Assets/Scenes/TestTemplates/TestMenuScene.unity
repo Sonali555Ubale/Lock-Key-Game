@@ -4590,7 +4590,7 @@ MonoBehaviour:
   autoConnectClientBuild: 0
   sendRate: 60
   offlineScene: Assets/Scenes/TestTemplates/TestMenuScene.unity
-  onlineScene: Assets/Scenes/TestTemplates/RoomScene.unity
+  onlineScene: Assets/Scenes/TestTemplates/NewRoomScene.unity
   transport: {fileID: 1350958056}
   networkAddress: localhost
   maxConnections: 50
@@ -4616,8 +4616,8 @@ MonoBehaviour:
   timeInterpolationGui: 0
   showRoomGUI: 1
   minPlayers: 1
-  roomPlayerPrefab: {fileID: 11869942651478725, guid: 4b181b893d6c7224dbf719cecae4e5fd, type: 3}
-  RoomScene: Assets/Scenes/TestTemplates/RoomScene.unity
+  roomPlayerPrefab: {fileID: 6525272273172151596, guid: 943a06712afa471498721e96a228ae6a, type: 3}
+  RoomScene: Assets/Scenes/TestTemplates/NewRoomScene.unity
   GameplayScene: Assets/Scenes/GameScene.unity
   _allPlayersReady: 0
   roomSlots: []
