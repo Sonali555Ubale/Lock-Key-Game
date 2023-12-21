@@ -7,7 +7,7 @@ public class CustomCanvasHUD : MonoBehaviour
 {
 	public GameObject PanelStart;
 	public GameObject PanelStop;
-    public GameObject ColorPanel;
+  //  public GameObject ColorPanel;
     
 	public Button buttonHost, buttonServer, buttonClient, buttonStop;
 

@@ -3132,7 +3132,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4688763023805645963}
         m_TargetAssemblyTypeName: NetworkRoomPlayerLobby, Assembly-CSharp
-        m_MethodName: CmdReadyUp
+        m_MethodName: OnReadyButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -306,5 +306,7 @@ namespace Mirror.Examples.MultipleMatch
         {
             canvasController.OnMatchEnded();
         }
+
+       
     }
 }

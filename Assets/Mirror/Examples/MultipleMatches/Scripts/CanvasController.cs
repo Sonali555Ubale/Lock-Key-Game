@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Mirror.Examples.MultipleMatch
@@ -465,7 +466,8 @@ namespace Mirror.Examples.MultipleMatch
             Guid matchId;
             if (playerMatches.TryGetValue(conn, out matchId))
             {
-                GameObject matchControllerObject = Instantiate(matchControllerPrefab);
+                 GameObject matchControllerObject = Instantiate(matchControllerPrefab);
+                
                 matchControllerObject.GetComponent<NetworkMatch>().matchId = matchId;
                 NetworkServer.Spawn(matchControllerObject);
 
