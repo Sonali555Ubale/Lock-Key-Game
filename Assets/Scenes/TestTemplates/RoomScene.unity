@@ -4552,7 +4552,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start Game
+  m_text: Color Select
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
@@ -4878,7 +4878,7 @@ MonoBehaviour:
   PlayerRoomTitleElement: {fileID: 1453641022937389236, guid: 69d4275cf7182214692bae01a2d21b53, type: 3}
   PlayerRoomTitleElementList: []
   VerticalLayoutObject: {fileID: 1779758141297007056}
-  CurrentPlayers: 0
+  CurrentPlayersCount: 0
   RoomManager: {fileID: 0}
 --- !u!222 &8027338403218110798
 CanvasRenderer:
@@ -5119,6 +5119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c418f73c6a4bc9848930e4915be57723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RoomManager: {fileID: 0}
 --- !u!114 &8670750200200647108
 MonoBehaviour:
   m_ObjectHideFlags: 0

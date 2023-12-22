@@ -39,7 +39,7 @@ using static UnityEditor.Rendering.FilterWindow;
 
     private void Update()
     {
-        if(CurrentPlayersCount < RoomManager.roomSlots.Count && !Processing)
+        if(CurrentPlayersCount != RoomManager.roomSlots.Count && !Processing)
         {
             OnPLayerChange();
         }

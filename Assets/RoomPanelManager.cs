@@ -2,12 +2,22 @@ using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class RoomPanelManager : MonoBehaviour
 {
 
     NetworkRoomPlayer CurrentNetworkPlayer;
+
+    [SerializeField]
+    NetworkRoomManager RoomManager = null;
+
+    private void OnEnable()
+    {
+        if (RoomManager == null) RoomManager = (NetworkRoomManager)FindObjectOfType(typeof(NetworkRoomManager));
+       
+    }
 
     public void OnPlayerReady()
     {
