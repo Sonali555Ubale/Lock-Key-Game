@@ -4,14 +4,21 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEditor.EditorTools;
 using UnityEngine;
+using UnityEngine.UI;
+using Mirror;
 
-public class RoomPanelManager : MonoBehaviour
+public class RoomPanelManager : NetworkBehaviour
 {
 
     NetworkRoomPlayer CurrentNetworkPlayer;
 
     [SerializeField]
     NetworkRoomManager RoomManager = null;
+
+    [SerializeField] Button ReadyButton;
+    [SerializeField] Button StartButton;
+    [SerializeField] Button CancelButton;
+
 
     private void OnEnable()
     {
@@ -21,6 +28,11 @@ public class RoomPanelManager : MonoBehaviour
 
     public void OnPlayerReady()
     {
+        if (isServer )
+            StartButton.gameObject.SetActive(true);
+        ReadyButton.interactable = false;
+        CancelButton.gameObject.SetActive(true);
+
         if (CurrentNetworkPlayer = null)
         {
             FindNetworkRoomPlayer()?.CmdChangeReadyStateOfPlayer(true);
@@ -28,8 +40,31 @@ public class RoomPanelManager : MonoBehaviour
         else
         {
             CurrentNetworkPlayer?.CmdChangeReadyStateOfPlayer(true);
+
         }
     }
+
+    public void OnPlayerCancel()
+    {
+        if (isServer)
+            StartButton.gameObject.SetActive(false);
+        ReadyButton.interactable = true;
+        CancelButton.gameObject.SetActive(false);
+        ReadyButton.gameObject.SetActive(true);
+
+        if (CurrentNetworkPlayer = null)
+        {
+            FindNetworkRoomPlayer()?.CmdChangeReadyStateOfPlayer(false);
+        }
+        else
+        {
+            CurrentNetworkPlayer?.CmdChangeReadyStateOfPlayer(false);
+            
+
+        }
+    }
+
+
 
     NetworkRoomPlayer FindNetworkRoomPlayer()
     {

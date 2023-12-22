@@ -20,6 +20,7 @@ public class ServerController : NetworkBehaviour
         // stop host if host mode
         if (NetworkServer.active && NetworkClient.isConnected)
         {
+            Debug.Log("host disconnected");
             NetworkManager.singleton.StopHost();
         }
         
@@ -37,6 +38,7 @@ public class ServerController : NetworkBehaviour
         // stop client if client-only
        if (NetworkClient.isConnected)
         {
+            Debug.Log("Client disconnected");
             NetworkManager.singleton.StopClient();
         }
        SetupCanvas();

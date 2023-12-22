@@ -4589,7 +4589,7 @@ MonoBehaviour:
   autoStartServerBuild: 1
   autoConnectClientBuild: 0
   sendRate: 60
-  offlineScene: 
+  offlineScene: Assets/Scenes/TestTemplates/TestMenuScene.unity
   onlineScene: Assets/Scenes/TestTemplates/RoomScene.unity
   transport: {fileID: 1350958056}
   networkAddress: localhost
@@ -4617,12 +4617,6 @@ MonoBehaviour:
   showRoomGUI: 0
   minPlayers: 1
   roomPlayerPrefab: {fileID: 11869942651478725, guid: 4b181b893d6c7224dbf719cecae4e5fd, type: 3}
-  OnClinetConnect:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClinetDisconnect:
-    m_PersistentCalls:
-      m_Calls: []
   RoomScene: Assets/Scenes/TestTemplates/RoomScene.unity
   GameplayScene: Assets/Scenes/GameScene.unity
   _allPlayersReady: 0

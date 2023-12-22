@@ -49,10 +49,10 @@ using static UnityEditor.Rendering.FilterWindow;
     private void OnPLayerChange()
     {
         Processing = true;
-        foreach (var obj in RoomManager.roomSlots)
+        foreach (var player in RoomManager.roomSlots)
         {
-            if (!NWRoomPlayerList.Contains(obj)) { 
-                NWRoomPlayerList.Add(obj);
+            if (!NWRoomPlayerList.Contains(player)) { 
+                NWRoomPlayerList.Add(player);
                 CurrentPlayersCount++;
             }
         }
@@ -66,9 +66,9 @@ using static UnityEditor.Rendering.FilterWindow;
         {
             GameObject.Destroy(child.gameObject);
         }
-        foreach (var obj in NWRoomPlayerList)
+        foreach (var player in NWRoomPlayerList)
         {
-            AddPlayer(obj.index, obj.name, obj.readyToBegin);
+            AddPlayer(player.index, player.name, player.readyToBegin);
         }
 
         Processing = false;
@@ -79,9 +79,10 @@ using static UnityEditor.Rendering.FilterWindow;
         GameObject Element = Instantiate(PlayerRoomTitleElement, VerticalLayoutObject == null ? this.transform : VerticalLayoutObject.transform); 
         
         TextMeshProUGUI[] list = Element.GetComponentsInChildren<TextMeshProUGUI>();
-        list[0].text = "Player [ " + (index + 1) + " ]";
+        list[0].text = PlayerNameInput.DisplayName;
         list[1].text = readystatus ? "Ready" : "Not Ready";
         PlayerRoomTitleElementList.Add(Element);
+        
     }
 
 }
