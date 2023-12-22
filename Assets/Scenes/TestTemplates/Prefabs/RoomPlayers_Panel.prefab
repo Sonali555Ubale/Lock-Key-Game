@@ -4196,7 +4196,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   showRoomGUI: 1
-  readyToBegin: 0
+  readyToBegin: 1
   index: 0
   LobbyUI: {fileID: 8889931705036747059}
   PlayerNameTxt:

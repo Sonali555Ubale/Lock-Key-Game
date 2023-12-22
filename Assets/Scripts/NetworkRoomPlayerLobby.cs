@@ -20,12 +20,13 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [SyncVar(hook = nameof(HandleReadyStateChanged))]
     public bool isReady = false;
 
-    private bool isDenner = true;
+    private bool isDenner = false;
 
     public bool IsDenner
     {
         set
         {
+            if (isServer) isDenner = true;
             isDenner = value;
             BtnStartGame.gameObject.SetActive(value);
         }
@@ -50,11 +51,11 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         LobbyUI.SetActive(true);
 
     }
-    public override void OnStartClient()
+   /* public override void OnStartClient()
     {
         Room.RoomPlayers.Add(this);  //update room player list
         UpdateDisplay();
-    }
+    }*/
    /* public override void OnStopClient()
     {
         Room.RoomPlayers.Remove(this);
@@ -129,7 +130,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
       //  isReady = isReady;
        // isReady = !isReady;   //on off toggle of ready btn
         Room.NotifyReadyState();
-        Debug.Log("PlayerReadyyyyy!!!!");
+        Debug.Log("Player Readyyyyy!!!!");
+       
 
           NetworkRoomManager room = NetworkManager.singleton as NetworkRoomManager;
         if (room != null)
