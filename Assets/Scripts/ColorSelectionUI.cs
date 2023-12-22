@@ -2,12 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 using System.Collections.Generic;
+using System;
 
 public class ColorSelectionUI : NetworkBehaviour
 {
     public Image colorPreviewImage;
     public Button[] colorButtons;
-
     public Color selectedColor = Color.red;
 
     [Header("Color Selection")]
@@ -23,12 +23,14 @@ public class ColorSelectionUI : NetworkBehaviour
 
     private Dictionary<Color, bool> colorAvailability = new Dictionary<Color, bool>();
 
+
     private void Start()
     {
-       
-            ColorSelectionPanel.SetActive(true);
-            RoomPlayerPanel.SetActive(false);
-       
+        this.gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
 
 
         // Initialize color buttons with click events
@@ -53,7 +55,7 @@ public class ColorSelectionUI : NetworkBehaviour
 
     public void OnChoosingColor(bool _, bool newval)
     {
-         isButtonInteracting = newval;
+        isButtonInteracting = newval;
     }
 
     public void OnColorButtonClick(Color _color)
@@ -84,8 +86,8 @@ public class ColorSelectionUI : NetworkBehaviour
         DisplayColor = color;
 
         // colorAvailability[color] = false;
-        
-       RpcUpdateSelectedColor(color);   // Notify all clients about the color selection
+
+        RpcUpdateSelectedColor(color);   // Notify all clients about the color selection
     }
 
     [ClientRpc]
@@ -93,7 +95,7 @@ public class ColorSelectionUI : NetworkBehaviour
     {                           // Update the selected color on all clients
         selectedColor = color;
         DisplayColor = color;
-       // SetButtonInteractable(color, false);
+        // SetButtonInteractable(color, false);
     }
 
     private void SetButtonInteractable(Color color, bool interactable)
@@ -119,5 +121,9 @@ public class ColorSelectionUI : NetworkBehaviour
         // Activate the player panel and deactivate the color selection panel
         // ColorSelectionPanel.SetActive(false);
         // RoomPlayerPanel.SetActive(true);
+
     }
+
+
+
 }

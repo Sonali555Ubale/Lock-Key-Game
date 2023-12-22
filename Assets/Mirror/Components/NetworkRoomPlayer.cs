@@ -9,6 +9,8 @@ namespace Mirror
     [DisallowMultipleComponent]
     [AddComponentMenu("Network/Network Room Player")]
     [HelpURL("https://mirror-networking.gitbook.io/docs/components/network-room-player")]
+
+
     public class NetworkRoomPlayer : NetworkBehaviour
     {
         /// <summary>
@@ -34,9 +36,9 @@ namespace Mirror
         /// </summary>
         [Tooltip("Diagnostic index of the player, e.g. Player1, Player2, etc.")]
         [SyncVar(hook = nameof(IndexChanged))]
-           public int index;
+        public int index;
 
-      
+
 
         #region Unity Callbacks
 
@@ -83,7 +85,7 @@ namespace Mirror
         public void CmdChangeReadyState(bool readyState)
         {
             readyToBegin = readyState;
-         
+
             NetworkRoomManager room = NetworkManager.singleton as NetworkRoomManager;
             if (room != null)
             {
@@ -100,14 +102,14 @@ namespace Mirror
         /// </summary>
         /// <param name="oldIndex">The old index value</param>
         /// <param name="newIndex">The new index value</param>
-        public virtual void IndexChanged(int oldIndex, int newIndex) {}
-      
+        public virtual void IndexChanged(int oldIndex, int newIndex) { }
+
         /// <summary>
         /// This is a hook that is invoked on clients when a RoomPlayer switches between ready or not ready.
         /// <para>This function is called when the a client player calls CmdChangeReadyState.</para>
         /// </summary>
         /// <param name="newReadyState">New Ready State</param>
-        public virtual void ReadyStateChanged(bool oldReadyState, bool newReadyState) {}
+        public virtual void ReadyStateChanged(bool oldReadyState, bool newReadyState) { }
 
         #endregion
 
@@ -117,14 +119,14 @@ namespace Mirror
         /// This is a hook that is invoked on clients for all room player objects when entering the room.
         /// <para>Note: isLocalPlayer is not guaranteed to be set until OnStartLocalPlayer is called.</para>
         /// </summary>
-        public virtual void OnClientEnterRoom() {}
+        public virtual void OnClientEnterRoom() { }
 
         /// <summary>
         /// This is a hook that is invoked on clients for all room player objects when exiting the room.
         /// </summary>
-        public virtual void OnClientExitRoom() {}
+        public virtual void OnClientExitRoom() { }
 
-       
+
         #endregion
 
         #region Optional UI
@@ -137,7 +139,7 @@ namespace Mirror
             if (!showRoomGUI)
                 return;
             GUI.backgroundColor = Color.white;
-              
+
             NetworkRoomManager room = NetworkManager.singleton as NetworkRoomManager;
             if (room)
             {
@@ -153,10 +155,10 @@ namespace Mirror
 
         void DrawPlayerReadyState()
         {
-            GUILayout.BeginArea(new Rect(20f + (index * 100), 200f, 90f, 130f) );
-           
-           GUI.color = Color.white;
-            GUILayout.Label($"Player [{index + 1}]" );           
+            GUILayout.BeginArea(new Rect(20f + (index * 100), 200f, 90f, 130f));
+
+            GUI.color = Color.white;
+            GUILayout.Label($"Player [{index + 1}]");
             if (readyToBegin)
                 GUILayout.Label("Ready");
             else
@@ -191,12 +193,19 @@ namespace Mirror
                     if (GUILayout.Button("Ready"))
                     {
                         CmdChangeReadyState(true);
-                       
+
                     }
                 }
                 GUILayout.EndArea();
             }
         }
+
+
+        public void CmdChangeReadyStateOfPlayer(bool val)
+        {
+            CmdChangeReadyState(val);
+        }
+       
 
         #endregion
     }

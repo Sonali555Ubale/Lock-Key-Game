@@ -52,13 +52,12 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     }
     public override void OnStartClient()
     {
-        Room.RoomPlayers.Add(this);  //update room player list
+        Room?.RoomPlayers?.Add(this);  //update room player list
         UpdateDisplay();
     }
     public override void OnStopClient()
     {
-        Room.RoomPlayers.Remove(this);
-
+        Room?.RoomPlayers?.Remove(this);
         UpdateDisplay();
     }
        
