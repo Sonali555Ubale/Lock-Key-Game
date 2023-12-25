@@ -28,19 +28,19 @@ public class PlayerRoomUIManager : MonoBehaviour
     LAK_NetworkRoomManager RoomManager = null;
 
     private static PlayerRoomUIManager instance = null;
-
+   public string Pname;
 
     private void OnEnable()
     {
         if (RoomManager == null) RoomManager = (LAK_NetworkRoomManager)FindObjectOfType(typeof(LAK_NetworkRoomManager));
 
-
+        Pname = PlayerNameInput.DisplayName;
         // Listen  to event of change in client list
-        RoomManager.OnClientListChange.AddListener(OnPLayerChange);
+        RoomManager.OnClientListChange.AddListener(OnPlayerChange);
     }
 
     //resets UI here we are simply reseting the entire Ui a burte force method we change it to be more optimized later
-    private void OnPLayerChange()
+    private void OnPlayerChange()
     {
  
         NWRoomPlayerList.Clear();
@@ -64,8 +64,8 @@ public class PlayerRoomUIManager : MonoBehaviour
 
         foreach (var player in NWRoomPlayerList)
         {
-            string pName = PlayerNameInput.DisplayName;
-            AddPlayer(player.index, pName, player.readyToBegin);
+           
+            AddPlayer(player.index, Pname, player.readyToBegin);
         }
 
 
@@ -76,7 +76,7 @@ public class PlayerRoomUIManager : MonoBehaviour
         GameObject Element = Instantiate(PlayerRoomTitleElement, VerticalLayoutObject == null ? this.transform : VerticalLayoutObject.transform);
 
         TextMeshProUGUI[] list = Element.GetComponentsInChildren<TextMeshProUGUI>();
-        list[0].text = index + " " + playername;
+        list[0].text = index + " : " + playername;
         list[1].text = readystatus ? "Ready" : "Not Ready";
         
         PlayerRoomTitleElementList.Add(Element);
