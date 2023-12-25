@@ -11,7 +11,7 @@ public class LAK_NetworkRoomManager : NetworkRoomManager
     public override void OnRoomClientEnter()
     {
         OnClientListChange.Invoke();
-        Debug.Log("Client Ala ree ");
+        Debug.Log("Client connected ");
     }
 
     public override void OnRoomClientExit()
@@ -19,4 +19,5 @@ public class LAK_NetworkRoomManager : NetworkRoomManager
         OnClientListChange.Invoke();
         Debug.Log("Client Gela ree ");
     }
+    
 }

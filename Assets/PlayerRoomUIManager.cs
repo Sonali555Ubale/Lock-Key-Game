@@ -21,6 +21,7 @@ public class PlayerRoomUIManager : MonoBehaviour
     [SerializeField]
     GameObject VerticalLayoutObject;
     List<NetworkRoomPlayer> NWRoomPlayerList = new List<NetworkRoomPlayer>();
+    
     [SerializeField]
     int CurrentPlayersCount = 0;
     [SerializeField]
@@ -63,7 +64,8 @@ public class PlayerRoomUIManager : MonoBehaviour
 
         foreach (var player in NWRoomPlayerList)
         {
-            AddPlayer(player.index, player.name, player.readyToBegin);
+            string pName = PlayerNameInput.DisplayName;
+            AddPlayer(player.index, pName, player.readyToBegin);
         }
 
 
