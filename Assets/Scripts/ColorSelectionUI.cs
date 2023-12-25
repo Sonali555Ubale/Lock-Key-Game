@@ -27,6 +27,8 @@ public class ColorSelectionUI : NetworkBehaviour
     private void Start()
     {
         this.gameObject.SetActive(false);
+        Debug.Log(":::"+this.name);
+       
     }
 
     private void OnEnable()
