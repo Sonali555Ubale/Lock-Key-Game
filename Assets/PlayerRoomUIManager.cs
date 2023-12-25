@@ -12,7 +12,7 @@ using UnityEngine.Rendering;
 using static UnityEditor.Rendering.FilterWindow;
 
 
-    public class PlayerRoomUIManager : MonoBehaviour
+public class PlayerRoomUIManager : MonoBehaviour
 {
     [SerializeField]
     GameObject PlayerRoomTitleElement;
@@ -24,65 +24,65 @@ using static UnityEditor.Rendering.FilterWindow;
     [SerializeField]
     int CurrentPlayersCount = 0;
     [SerializeField]
-    NetworkRoomManager RoomManager = null;
-    bool Processing = false;
+    LAK_NetworkRoomManager RoomManager = null;
 
     private static PlayerRoomUIManager instance = null;
 
 
     private void OnEnable()
     {
-        if (RoomManager == null) RoomManager = (NetworkRoomManager)FindObjectOfType(typeof(NetworkRoomManager));
-        OnPLayerChange();
+        if (RoomManager == null) RoomManager = (LAK_NetworkRoomManager)FindObjectOfType(typeof(LAK_NetworkRoomManager));
+
+
+        // Listen  to event of change in client list
+        RoomManager.OnClientListChange.AddListener(OnPLayerChange);
     }
 
-
-    private void Update()
-    {
-        if(CurrentPlayersCount != RoomManager.roomSlots.Count && !Processing)
-        {
-            OnPLayerChange();
-        }
-    }
-
-
+    //resets UI here we are simply reseting the entire Ui a burte force method we change it to be more optimized later
     private void OnPLayerChange()
     {
-        Processing = true;
+ 
+        NWRoomPlayerList.Clear();
         foreach (var player in RoomManager.roomSlots)
         {
-            if (!NWRoomPlayerList.Contains(player)) { 
-                NWRoomPlayerList.Add(player);
-                CurrentPlayersCount++;
-            }
+           NWRoomPlayerList.Add(player);
+           CurrentPlayersCount++;
         }
-        SetPlayerTable();
+        ResetPlayerTableUI();
     }
 
-    private void SetPlayerTable()
+    private void ResetPlayerTableUI()
     {
-        PlayerRoomTitleElementList.Clear();
-        foreach (Transform child in VerticalLayoutObject.transform)
+        foreach (var child in PlayerRoomTitleElementList)
         {
-            GameObject.Destroy(child.gameObject);
+            GameObject.Destroy(child);
         }
+
+        //simply delete all 
+        // simple add all current clients  // we can change it later to only delete specific
+
         foreach (var player in NWRoomPlayerList)
         {
             AddPlayer(player.index, player.name, player.readyToBegin);
         }
 
-        Processing = false;
+
     }
 
     public void AddPlayer(int index, string playername, bool readystatus)
     {
-        GameObject Element = Instantiate(PlayerRoomTitleElement, VerticalLayoutObject == null ? this.transform : VerticalLayoutObject.transform); 
-        
+        GameObject Element = Instantiate(PlayerRoomTitleElement, VerticalLayoutObject == null ? this.transform : VerticalLayoutObject.transform);
+
         TextMeshProUGUI[] list = Element.GetComponentsInChildren<TextMeshProUGUI>();
-        list[0].text = PlayerNameInput.DisplayName;
+        list[0].text = index + " " + playername;
         list[1].text = readystatus ? "Ready" : "Not Ready";
-        PlayerRoomTitleElementList.Add(Element);
         
+        PlayerRoomTitleElementList.Add(Element);
+
+
+
     }
+
+
 
 }
