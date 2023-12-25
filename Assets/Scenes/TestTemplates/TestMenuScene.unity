@@ -4616,10 +4616,10 @@ MonoBehaviour:
   timeInterpolationGui: 0
   showRoomGUI: 0
   minPlayers: 1
-  roomPlayerPrefab: {fileID: 11869942651478725, guid: 4b181b893d6c7224dbf719cecae4e5fd, type: 3}
+  roomPlayerPrefab: {fileID: -5437947157756226329, guid: ea62c1d035f7d5e4aadfb7e628fb9caf, type: 3}
   RoomScene: Assets/Scenes/TestTemplates/RoomScene.unity
   GameplayScene: Assets/Scenes/GameScene.unity
-  _allPlayersReady: 0
+  _allPlayersReady: 1
   roomSlots: []
   clientIndex: 0
 --- !u!4 &1350958054

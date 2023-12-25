@@ -18,6 +18,7 @@ public class RoomPanelManager : NetworkBehaviour
     [SerializeField] Button ReadyButton;
     [SerializeField] Button StartButton;
     [SerializeField] Button CancelButton;
+    public PlayerRoomUIManager PRUM;
 
 
     private void OnEnable()
@@ -36,11 +37,12 @@ public class RoomPanelManager : NetworkBehaviour
         if (CurrentNetworkPlayer = null)
         {
             FindNetworkRoomPlayer()?.CmdChangeReadyStateOfPlayer(true);
+           
         }
         else
         {
             CurrentNetworkPlayer?.CmdChangeReadyStateOfPlayer(true);
-
+           
         }
     }
 
@@ -55,16 +57,14 @@ public class RoomPanelManager : NetworkBehaviour
         if (CurrentNetworkPlayer = null)
         {
             FindNetworkRoomPlayer()?.CmdChangeReadyStateOfPlayer(false);
+          
         }
         else
         {
             CurrentNetworkPlayer?.CmdChangeReadyStateOfPlayer(false);
-            
-
+          
         }
     }
-
-
 
     NetworkRoomPlayer FindNetworkRoomPlayer()
     {

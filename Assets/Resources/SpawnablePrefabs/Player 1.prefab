@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 3561483261755915244}
   - component: {fileID: 400681319567239517}
   - component: {fileID: 4911009341463089755}
+  - component: {fileID: -5437947157756226329}
   m_Layer: 6
   m_Name: Player 1
   m_TagString: Player
@@ -354,6 +355,24 @@ MonoBehaviour:
   colorSelectionUI: {fileID: 0}
   playerName: Sonali
   PlayerColor: {r: 1, g: 1, b: 1, a: 0}
+--- !u!114 &-5437947157756226329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5602966812431893182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79874ac94d5b1314788ecf0e86bd23fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  showRoomGUI: 1
+  readyToBegin: 0
+  index: 0
 --- !u!1 &5881405556973656928
 GameObject:
   m_ObjectHideFlags: 0

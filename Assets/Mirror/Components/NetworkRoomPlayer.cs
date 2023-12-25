@@ -109,7 +109,10 @@ namespace Mirror
         /// <para>This function is called when the a client player calls CmdChangeReadyState.</para>
         /// </summary>
         /// <param name="newReadyState">New Ready State</param>
-        public virtual void ReadyStateChanged(bool oldReadyState, bool newReadyState) { }
+        public virtual void ReadyStateChanged(bool oldReadyState, bool newReadyState) 
+        {
+            readyToBegin = newReadyState;
+        }
 
         #endregion
 
