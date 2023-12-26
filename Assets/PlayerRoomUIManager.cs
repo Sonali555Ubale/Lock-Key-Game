@@ -74,7 +74,7 @@ public class PlayerRoomUIManager : MonoBehaviour
         foreach (var player in NWRoomPlayerList)
         {
            
-            AddPlayer(player.index, player.playerName, player.readyToBegin);
+            AddPlayer(player.index, player.DisplayName, player.readyToBegin);
         }
 
     }

@@ -10,10 +10,12 @@ public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
  
     [Tooltip("Diagnostic Player name")]
     [SyncVar(hook = nameof(PlayerNameUpdate))]
-    public string playerName;
+    public string DisplayName;
+  
 
     public UnityEvent OnClientReadyStateChange = new UnityEvent();
 
+   
     public override void ReadyStateChanged(bool oldReadyState, bool newReadyState)
     {
         var onj = (LAK_NetworkRoomManager)FindObjectOfType(typeof(LAK_NetworkRoomManager));
@@ -23,9 +25,30 @@ public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
 
     public void PlayerNameUpdate(string oldName, string newName)
     {
-        playerName = newName;
+        DisplayName = newName;
     }
 
+
+    public override void OnStartLocalPlayer()
+    {
+        string name = PlayerNameInput.DisplayName;
+        CmdSetupPlayerName(name);
+
+    }
+
+    [Command]
+    public void CmdSetupPlayerName(string _name)
+    {
+        DisplayName = _name;
+        RpcUpdatePlayerName(_name);
+    }
+
+    [ClientRpc]
+    void RpcUpdatePlayerName(string _name)
+    {
+        DisplayName = _name;
+    }
    
+
 }
 
