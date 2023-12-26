@@ -4654,13 +4654,16 @@ MonoBehaviour:
   timeInterpolationGui: 0
   showRoomGUI: 0
   minPlayers: 1
-  roomPlayerPrefab: {fileID: 4070982665389956407, guid: 4b181b893d6c7224dbf719cecae4e5fd, type: 3}
+  roomPlayerPrefab: {fileID: 1018375740645934289, guid: 4b181b893d6c7224dbf719cecae4e5fd, type: 3}
   RoomScene: Assets/Scenes/TestTemplates/RoomScene.unity
   GameplayScene: Assets/Scenes/GameScene.unity
   _allPlayersReady: 0
   roomSlots: []
   clientIndex: 0
   OnClientListChange:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientReadyStateChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1399825952

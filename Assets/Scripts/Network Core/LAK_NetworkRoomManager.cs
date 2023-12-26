@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class LAK_NetworkRoomManager : NetworkRoomManager
 {
     public UnityEvent OnClientListChange = new UnityEvent();
+    public UnityEvent OnClientReadyStateChanged = new UnityEvent();
 
     public override void OnRoomClientEnter()
     {
@@ -19,5 +20,27 @@ public class LAK_NetworkRoomManager : NetworkRoomManager
         OnClientListChange.Invoke();
         Debug.Log("Client Gela ree ");
     }
-    
+
+    public override void ReadyStatusChanged()
+    {
+        int CurrentPlayers = 0;
+        int ReadyPlayers = 0;
+
+        foreach (NetworkRoomPlayer item in roomSlots)
+        {
+            if (item != null)
+            {
+                CurrentPlayers++;
+                if (item.readyToBegin)
+                    ReadyPlayers++;
+            }
+        }
+
+        if (CurrentPlayers == ReadyPlayers)
+            CheckReadyToBegin();
+        else
+            allPlayersReady = false;
+
+        OnClientReadyStateChanged.Invoke();
+    }
 }

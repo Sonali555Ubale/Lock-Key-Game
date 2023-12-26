@@ -20,7 +20,7 @@ public class PlayerRoomUIManager : MonoBehaviour
     List<GameObject> PlayerRoomTitleElementList;
     [SerializeField]
     GameObject VerticalLayoutObject;
-    List<NetworkRoomPlayer> NWRoomPlayerList = new List<NetworkRoomPlayer>();
+    List<LAK_NetworkRoomPlayer> NWRoomPlayerList = new List<LAK_NetworkRoomPlayer>();
     
     [SerializeField]
     int CurrentPlayersCount = 0;
@@ -30,13 +30,22 @@ public class PlayerRoomUIManager : MonoBehaviour
     private static PlayerRoomUIManager instance = null;
    public string Pname;
 
+   
+
     private void OnEnable()
     {
         if (RoomManager == null) RoomManager = (LAK_NetworkRoomManager)FindObjectOfType(typeof(LAK_NetworkRoomManager));
+       
 
         Pname = PlayerNameInput.DisplayName;
         // Listen  to event of change in client list
         RoomManager.OnClientListChange.AddListener(OnPlayerChange);
+        RoomManager.OnClientReadyStateChanged.AddListener(OnPlayerReadyStateChange);
+    }
+
+    private void OnPlayerReadyStateChange()
+    {
+        ResetPlayerTableUI();
     }
 
     //resets UI here we are simply reseting the entire Ui a burte force method we change it to be more optimized later
@@ -46,8 +55,8 @@ public class PlayerRoomUIManager : MonoBehaviour
         NWRoomPlayerList.Clear();
         foreach (var player in RoomManager.roomSlots)
         {
-           NWRoomPlayerList.Add(player);
-           CurrentPlayersCount++;
+           NWRoomPlayerList.Add(player as LAK_NetworkRoomPlayer);
+           //CurrentPlayersCount++;
         }
         ResetPlayerTableUI();
     }
@@ -68,7 +77,6 @@ public class PlayerRoomUIManager : MonoBehaviour
             AddPlayer(player.index, Pname, player.readyToBegin);
         }
 
-
     }
 
     public void AddPlayer(int index, string playername, bool readystatus)
@@ -80,8 +88,6 @@ public class PlayerRoomUIManager : MonoBehaviour
         list[1].text = readystatus ? "Ready" : "Not Ready";
         
         PlayerRoomTitleElementList.Add(Element);
-
-
 
     }
 
