@@ -61,7 +61,7 @@ public class PlayerRoomUIManager : MonoBehaviour
         ResetPlayerTableUI();
     }
 
-    private void ResetPlayerTableUI()
+    public void ResetPlayerTableUI()
     {
         foreach (var child in PlayerRoomTitleElementList)
         {
@@ -74,7 +74,7 @@ public class PlayerRoomUIManager : MonoBehaviour
         foreach (var player in NWRoomPlayerList)
         {
            
-            AddPlayer(player.index, Pname, player.readyToBegin);
+            AddPlayer(player.index, player.playerName, player.readyToBegin);
         }
 
     }
@@ -84,7 +84,7 @@ public class PlayerRoomUIManager : MonoBehaviour
         GameObject Element = Instantiate(PlayerRoomTitleElement, VerticalLayoutObject == null ? this.transform : VerticalLayoutObject.transform);
 
         TextMeshProUGUI[] list = Element.GetComponentsInChildren<TextMeshProUGUI>();
-        list[0].text = index + " : " + playername;
+        list[0].text = playername;
         list[1].text = readystatus ? "Ready" : "Not Ready";
         
         PlayerRoomTitleElementList.Add(Element);

@@ -21,6 +21,12 @@ public class LAK_NetworkRoomManager : NetworkRoomManager
         Debug.Log("Client Gela ree ");
     }
 
+    public void ClientStatusUpdate(LAK_NetworkRoomPlayer player, bool oldval, bool newval)
+    {
+        //optimize logic later hence taking extra parameters
+        OnClientReadyStateChanged.Invoke();
+    }
+
     public override void ReadyStatusChanged()
     {
         int CurrentPlayers = 0;

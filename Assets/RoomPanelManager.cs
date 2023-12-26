@@ -11,21 +11,23 @@ public class RoomPanelManager : NetworkBehaviour
 {
 
     LAK_NetworkRoomPlayer CurrentNetworkPlayer;
-
-    [SerializeField]
     LAK_NetworkRoomManager RoomManager = null;
+    LAK_NetworkRoomPlayer CurrentPlayer;
+    PlayerRoomUIManager playerRoomUIManager;
+
 
     [SerializeField] Button ReadyButton;
     [SerializeField] Button StartButton;
     [SerializeField] Button CancelButton;
-    LAK_NetworkRoomPlayer CurrentPlayer;
+
+
     private bool ReadyState = false;
     private void OnEnable()
     {
         if (RoomManager == null) RoomManager = (LAK_NetworkRoomManager)FindObjectOfType(typeof(LAK_NetworkRoomManager));
         if (CurrentPlayer == null) CurrentPlayer = (LAK_NetworkRoomPlayer)FindObjectOfType(typeof(LAK_NetworkRoomPlayer));
+        if(playerRoomUIManager==null) playerRoomUIManager = (PlayerRoomUIManager)FindObjectOfType(typeof(PlayerRoomUIManager));
 
-        
     }
     public void Update()
     {
@@ -42,10 +44,12 @@ public class RoomPanelManager : NetworkBehaviour
             CurrentNetworkPlayer?.CmdChangeReadyState(true);
         Debug.Log("OnPlayerReady Called::");
 
-        ReadyButton.interactable = false;
-        CancelButton.gameObject.SetActive(true);
 
-       
+        CancelButton.gameObject.SetActive(true);
+        CancelButton.interactable = true;
+        ReadyButton.interactable = false;
+        ReadyButton.gameObject.SetActive(false);
+       // playerRoomUIManager.ResetPlayerTableUI();
 
         /* if (isServer )
              StartButton.gameObject.SetActive(true);
@@ -75,16 +79,18 @@ public class RoomPanelManager : NetworkBehaviour
         CancelButton.gameObject.SetActive(false);
         ReadyButton.gameObject.SetActive(true);*/
 
-        if (CurrentNetworkPlayer = null)
+        if (CurrentNetworkPlayer == null)
               FindNetworkRoomPlayer()?.CmdChangeReadyState(false);
         else
             CurrentNetworkPlayer?.CmdChangeReadyState(false);
 
+        Debug.Log("OnPlayerCancle Called::");
 
-        ReadyButton.interactable = true;
+        CancelButton.interactable = false;
         CancelButton.gameObject.SetActive(false);
         ReadyButton.gameObject.SetActive(true);
-
+        ReadyButton.interactable = true;
+       // playerRoomUIManager.ResetPlayerTableUI();
     }
 
 
