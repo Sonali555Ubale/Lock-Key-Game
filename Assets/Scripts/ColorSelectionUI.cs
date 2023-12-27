@@ -26,7 +26,7 @@ public class ColorSelectionUI : NetworkBehaviour
 
     private void Start()
     {
-       // this.gameObject.SetActive(true);
+       this.gameObject.SetActive(true);
         Debug.Log(":::"+this.name);
         RoomPlayerPanel.SetActive(false);
 
