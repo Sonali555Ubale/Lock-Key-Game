@@ -26,9 +26,11 @@ public class ColorSelectionUI : NetworkBehaviour
 
     private void Start()
     {
-        this.gameObject.SetActive(false);
+       // this.gameObject.SetActive(true);
         Debug.Log(":::"+this.name);
-       
+        RoomPlayerPanel.SetActive(false);
+
+
     }
 
     private void OnEnable()
@@ -121,8 +123,8 @@ public class ColorSelectionUI : NetworkBehaviour
             SetButtonInteractable(selectedColor, false);
         }
         // Activate the player panel and deactivate the color selection panel
-        // ColorSelectionPanel.SetActive(false);
-        // RoomPlayerPanel.SetActive(true);
+         ColorSelectionPanel.SetActive(false);
+         RoomPlayerPanel.SetActive(true);
 
     }
 

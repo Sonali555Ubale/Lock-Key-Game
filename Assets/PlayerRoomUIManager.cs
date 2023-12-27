@@ -3,14 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.IO.LowLevel.Unsafe;
-using Unity.VisualScripting;
-using UnityEditor.EditorTools;
-using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.Rendering;
-using static UnityEditor.Rendering.FilterWindow;
-
 
 public class PlayerRoomUIManager : MonoBehaviour
 {

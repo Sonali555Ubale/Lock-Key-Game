@@ -21,13 +21,13 @@ public class ServerController : NetworkBehaviour
         if (NetworkServer.active && NetworkClient.isConnected)
         {
             Debug.Log("host disconnected");
-            NetworkManager.singleton.StopHost();
+           NetworkManager.singleton.StopHost();
         }
         
         // stop server if server-only
         else if (NetworkServer.active)
         {
-            NetworkManager.singleton.StopServer();
+          NetworkManager.singleton.StopServer();
         }
 
         SetupCanvas();
@@ -39,7 +39,7 @@ public class ServerController : NetworkBehaviour
        if (NetworkClient.isConnected)
         {
             Debug.Log("Client disconnected");
-            NetworkManager.singleton.StopClient();
+          NetworkManager.singleton.StopClient();
         }
        SetupCanvas();
     }
@@ -50,7 +50,8 @@ public class ServerController : NetworkBehaviour
         if (NetworkServer.active && NetworkClient.isConnected)
         {
             if (NetworkServer.active && Utils.IsSceneActive("GameScene"))
-                   NetworkRoomManager.singleton.ServerChangeScene("RoomScene");
+               // LAK_NetworkRoomManager.FindObjectOfType<LAK_NetworkRoomManager>().ServerChangeScene("RoomScene");
+            LAK_NetworkRoomManager.singleton.ServerChangeScene("RoomScene");
         }
     }
 

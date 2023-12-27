@@ -7,11 +7,11 @@ using UnityEngine.Events;
 
 public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
 {
- 
+
     [Tooltip("Diagnostic Player name")]
-    [SyncVar(hook = nameof(PlayerNameUpdate))]
-    public string DisplayName;
-  
+   /* [SyncVar(hook = nameof(PlayerNameUpdate))]
+    public string DisplayName;*/
+    [SyncVar] public string DisplayName;
 
     public UnityEvent OnClientReadyStateChange = new UnityEvent();
 
@@ -23,10 +23,10 @@ public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
         OnClientReadyStateChange.Invoke();
     }
 
-    public void PlayerNameUpdate(string oldName, string newName)
+   /* public void PlayerNameUpdate(string oldName, string newName)
     {
         DisplayName = newName;
-    }
+    }*/
 
 
     public override void OnStartLocalPlayer()
