@@ -8,16 +8,20 @@ public class ColorSelectionUI : NetworkBehaviour
 {
     public Image colorPreviewImage;
     public Button[] colorButtons;
-    public Color selectedColor = Color.red;
+    public Color selectedColor;
 
     [Header("Color Selection")]
     [SerializeField]
-    private GameObject RoomPlayerPanel;
+    private Button ReadyButton;
     [SerializeField]
     private GameObject ColorSelectionPanel;
+    [SerializeField]
+    LAK_NetworkRoomPlayer RoomPlayer = null;
 
     [SyncVar(hook = nameof(OnChoosingColor))]
     public bool isButtonInteracting = true;
+    [SyncVar(hook = nameof(OnSelectionUIColor))]
+    public Color ColorToHide;
 
     public static Color DisplayColor { get; private set; }
 
@@ -26,17 +30,18 @@ public class ColorSelectionUI : NetworkBehaviour
 
     private void Start()
     {
-       this.gameObject.SetActive(true);
-        Debug.Log(":::"+this.name);
-        RoomPlayerPanel.SetActive(false);
+        /* this.gameObject.SetActive(true);
+          Debug.Log(":::"+this.name);
+          RoomPlayerPanel.SetActive(false);*/
 
 
     }
 
     private void OnEnable()
     {
-
-
+        if (RoomPlayer == null) RoomPlayer = (LAK_NetworkRoomPlayer)FindObjectOfType(typeof(LAK_NetworkRoomPlayer));
+      
+          ColorToHide = selectedColor;
         // Initialize color buttons with click events
         foreach (Button button in colorButtons)
         {
@@ -62,7 +67,7 @@ public class ColorSelectionUI : NetworkBehaviour
         isButtonInteracting = newval;
     }
 
-    public void OnColorButtonClick(Color _color)
+    public void OnColorButtonClick(Color _color)    // this method is called on color button click
     {
         if (isButtonInteracting && colorAvailability.ContainsKey(_color))
         {
@@ -74,9 +79,11 @@ public class ColorSelectionUI : NetworkBehaviour
             PlayerPrefs.SetFloat("PlayerColorB", selectedColor.b);
             PlayerPrefs.SetFloat("PlayerColorA", selectedColor.a);
             DisplayColor = _color;
+            ColorToHide = _color;
 
             // Reserve the selected color
-            colorAvailability[_color] = false;
+            colorAvailability[selectedColor] = false;
+            
 
             // Notify the server about the color selection
             CmdSelectColor(_color);
@@ -88,7 +95,7 @@ public class ColorSelectionUI : NetworkBehaviour
     {
         selectedColor = color;
         DisplayColor = color;
-
+        ColorToHide = color;
         // colorAvailability[color] = false;
 
         RpcUpdateSelectedColor(color);   // Notify all clients about the color selection
@@ -99,7 +106,7 @@ public class ColorSelectionUI : NetworkBehaviour
     {                           // Update the selected color on all clients
         selectedColor = color;
         DisplayColor = color;
-        // SetButtonInteractable(color, false);
+         // SetButtonInteractable(color, false);
     }
 
     private void SetButtonInteractable(Color color, bool interactable)
@@ -116,18 +123,23 @@ public class ColorSelectionUI : NetworkBehaviour
 
     public void OnSetColorButtonClick()
     {
-        if (!isOwned || !isLocalPlayer || isClient)
-        {
+         
             isButtonInteracting = false;                                              // Disable the selected color button on all clients
             colorAvailability[selectedColor] = false;
             SetButtonInteractable(selectedColor, false);
-        }
+            ReadyButton.gameObject.SetActive(true);
+        
         // Activate the player panel and deactivate the color selection panel
-         ColorSelectionPanel.SetActive(false);
-         RoomPlayerPanel.SetActive(true);
+        /* ColorSelectionPanel.SetActive(false);
+         RoomPlayerPanel.SetActive(true);*/
 
     }
 
+    public void OnSelectionUIColor(Color oldColor, Color newColor)
+    {
 
+        ColorToHide = newColor;
+
+    }
 
 }

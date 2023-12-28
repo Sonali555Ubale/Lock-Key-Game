@@ -4,10 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class LAK_NetworkRoomManager : NetworkRoomManager
+
+public class LAK_NetworkRoomManager : NetworkRoomManager 
 {
     public UnityEvent OnClientListChange = new UnityEvent();
     public UnityEvent OnClientReadyStateChanged = new UnityEvent();
+    // public UnityEvent OnPlayerColorSelection = new UnityEvent();
+    
+
 
     public override void OnRoomClientEnter()
     {
@@ -21,7 +25,7 @@ public class LAK_NetworkRoomManager : NetworkRoomManager
         Debug.Log("Client Gela ree ");
     }
 
-    public void ClientStatusUpdate(LAK_NetworkRoomPlayer player, bool oldval, bool newval)
+    public void AnyClientUpdate(LAK_NetworkRoomPlayer player)
     {
         //optimize logic later hence taking extra parameters
         OnClientReadyStateChanged.Invoke();
@@ -49,4 +53,6 @@ public class LAK_NetworkRoomManager : NetworkRoomManager
 
         OnClientReadyStateChanged.Invoke();
     }
+
+   
 }
