@@ -14,7 +14,7 @@ public class LAK_NetworkRoomManager : NetworkRoomManager
     public UnityEvent OnClientReadyStateChanged = new UnityEvent();
     public UnityEvent OnPlayerColorSelection = new UnityEvent();
 
-
+    public int indexVal = 0;
     /// <summary>
     /// ///// actual list of avalible colors
     /// </summary>
@@ -25,6 +25,8 @@ public class LAK_NetworkRoomManager : NetworkRoomManager
         if (index >= 0 && index < 10)
         {
             ColorsAvaliblity[index] = val;
+            indexVal = index;
+            Debug.Log(indexVal + "val of idexVal is sent to UI");
         }
 
 
@@ -37,6 +39,7 @@ public class LAK_NetworkRoomManager : NetworkRoomManager
         OnPlayerColorSelection.Invoke();
 
     }
+   
 
     public override void OnRoomClientEnter()
     {

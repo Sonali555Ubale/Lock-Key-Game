@@ -13,10 +13,24 @@ public class ColorSelectionUI : NetworkBehaviour
     public static Color DisplayColor { get; private set; }
 
     [SerializeField]
-    private List<Button> buttons = new List<Button>();
+    private List<Button> colorButtons = new List<Button>();
 
     [SerializeField]
     private List<Color> Colors = new List<Color>();
+
+    public Image colorPreviewImage;
+    public Color selectedColor;
+    private bool isButtonInteracting = true;
+    private int indexValue;
+
+    [Header("Color Selection")]
+    [SerializeField]
+    private Button ReadyButton;
+    [SerializeField]
+    private Button SetButton;
+    [SerializeField]
+    private GameObject ColorSelectionPanel;
+    
 
     public void ColorSelect(int index)
     {
@@ -47,14 +61,87 @@ public class ColorSelectionUI : NetworkBehaviour
     void Start()
     {
         if (RoomManager == null) RoomManager = (LAK_NetworkRoomManager)FindObjectOfType(typeof(LAK_NetworkRoomManager));
-        RoomManager.OnPlayerColorSelection.AddListener(UpdateUI);
+          RoomManager.OnPlayerColorSelection.AddListener(UpdateUI);
     }
+    private void OnEnable()
+    {
+        if (CurrentNetworkPlayer == null) CurrentNetworkPlayer = (LAK_NetworkRoomPlayer)FindObjectOfType(typeof(LAK_NetworkRoomPlayer));
 
+        // Initialize color buttons with click events
+        foreach (Button button in colorButtons)
+        {
+            Color buttonColor = button.GetComponent<Image>().color;
+            button.onClick.AddListener(() => OnColorButtonClick(buttonColor));
+        }
 
+    }
     private void UpdateUI()
     {
-        // logic
+        Debug.Log("This is Update UI Fun:::: index Val is now" +RoomManager.indexVal);
+
+        if(isButtonInteracting == false) 
+        {
+            indexValue = RoomManager.indexVal;
+            colorButtons[indexValue].interactable = false;
+        }
+            Debug.Log(" color disabled::" + colorButtons[indexValue]);
+           
+        
+
+      
+
     }
+
+    public void OnColorButtonClick(Color _color)    // this method is called on color button click
+    {
+       
+            // Set the selected color when a color button is clicked
+            selectedColor = _color;
+            colorPreviewImage.color = _color;
+            PlayerPrefs.SetFloat("PlayerColorR", selectedColor.r);
+            PlayerPrefs.SetFloat("PlayerColorG", selectedColor.g);
+            PlayerPrefs.SetFloat("PlayerColorB", selectedColor.b);
+            PlayerPrefs.SetFloat("PlayerColorA", selectedColor.a);
+            DisplayColor = _color;
+          
+
+            // Notify the server about the color selection
+          // CmdSelectColor(_color);
+        
+    }
+
+    [Command]
+    private void CmdSelectColor(Color color)
+    {
+        selectedColor = color;
+        DisplayColor = color;
+       
+        // colorAvailability[color] = false;
+
+        RpcUpdateSelectedColor(color);   // Notify all clients about the color selection
+    }
+
+    [ClientRpc]
+    private void RpcUpdateSelectedColor(Color color)
+    {                           // Update the selected color on all clients
+        selectedColor = color;
+        DisplayColor = color;
+        // SetButtonInteractable(color, false);
+    }
+
+    public void OnSetColorButtonClick()
+    {
+        if (isButtonInteracting)
+        {
+        
+            isButtonInteracting = false;
+        }
+        CmdSelectColor(DisplayColor);
+        ReadyButton.gameObject.SetActive(true);
+       
+
+    }
+
 
     /*
         public Image colorPreviewImage;

@@ -51,6 +51,7 @@ public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
     void RpcUpdateColorSelected(int index, bool val)
     {
        roomManager.UpdateColorVal(index,val);
+        
     }
 
 

@@ -1816,7 +1816,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 685798045797585866}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5380100710491240861}
+        m_TargetAssemblyTypeName: ColorSelectionUI, Assembly-CSharp
+        m_MethodName: ColorSelect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &739715683349748315
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2400,7 +2412,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8708292124729661940}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5380100710491240861}
+        m_TargetAssemblyTypeName: ColorSelectionUI, Assembly-CSharp
+        m_MethodName: ColorSelect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &2005979746554120922
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2482,7 +2506,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9047732932029754514}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5380100710491240861}
+        m_TargetAssemblyTypeName: ColorSelectionUI, Assembly-CSharp
+        m_MethodName: ColorSelect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2163312806997621366
 GameObject:
   m_ObjectHideFlags: 0
@@ -2582,7 +2618,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4557896750281940536}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5380100710491240861}
+        m_TargetAssemblyTypeName: ColorSelectionUI, Assembly-CSharp
+        m_MethodName: ColorSelect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 7
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &2369680535456119277
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3127,7 +3175,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5162160409947835481}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5380100710491240861}
+        m_TargetAssemblyTypeName: ColorSelectionUI, Assembly-CSharp
+        m_MethodName: ColorSelect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4156513090431507942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3409,7 +3469,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1494393847034347270}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5380100710491240861}
+        m_TargetAssemblyTypeName: ColorSelectionUI, Assembly-CSharp
+        m_MethodName: ColorSelect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4557896750281940536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3646,7 +3718,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3570263977095373336}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5380100710491240861}
+        m_TargetAssemblyTypeName: ColorSelectionUI, Assembly-CSharp
+        m_MethodName: ColorSelect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 9
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5052701223011026053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3817,18 +3901,23 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   CurrentNetworkPlayer: {fileID: 0}
-  buttons:
+  colorButtons:
   - {fileID: 6009636072526792242}
-  - {fileID: 4081817930675599922}
   - {fileID: 4552506352969189606}
-  - {fileID: 1918708415251523655}
   - {fileID: 8670750200200647108}
-  - {fileID: 2298841712087023136}
   - {fileID: 692812733548059712}
-  - {fileID: 8113377156651271238}
   - {fileID: 2086562210725024784}
+  - {fileID: 4081817930675599922}
+  - {fileID: 1918708415251523655}
+  - {fileID: 2298841712087023136}
+  - {fileID: 8113377156651271238}
   - {fileID: 5033137132284082059}
   Colors: []
+  colorPreviewImage: {fileID: 7890720169357745991}
+  selectedColor: {r: 0, g: 0, b: 0, a: 0}
+  ReadyButton: {fileID: 7097443560001198500}
+  SetButton: {fileID: 6265926456869673946}
+  ColorSelectionPanel: {fileID: 255423288699987983}
 --- !u!114 &5431431017275351110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4225,7 +4314,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 632608538071868735}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5380100710491240861}
+        m_TargetAssemblyTypeName: ColorSelectionUI, Assembly-CSharp
+        m_MethodName: ColorSelect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6048209197826614573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5216,7 +5317,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 981097367332668452}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5380100710491240861}
+        m_TargetAssemblyTypeName: ColorSelectionUI, Assembly-CSharp
+        m_MethodName: ColorSelect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 8
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8235881671205727108
 GameObject:
   m_ObjectHideFlags: 0
@@ -5383,7 +5496,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6128369353423551057}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5380100710491240861}
+        m_TargetAssemblyTypeName: ColorSelectionUI, Assembly-CSharp
+        m_MethodName: ColorSelect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8708292124729661940
 MonoBehaviour:
   m_ObjectHideFlags: 0
