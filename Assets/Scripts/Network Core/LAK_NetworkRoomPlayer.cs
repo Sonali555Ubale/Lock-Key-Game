@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEditor.Progress;
 
 public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
 {
@@ -11,12 +12,46 @@ public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
     [Tooltip("Diagnostic Player name")]
     [SyncVar(hook = nameof(PlayerNameUpdate))]
     public string DisplayName;
-   
 
-   /* [SyncVar(hook = nameof(OnSelectionUIColor))] 
-    public Color ColorToHide;*/
-    //  public Dictionary<Color, bool> colorTodisable = new Dictionary<Color, bool>();
+    public readonly SyncList<bool> ColorActiveList = new SyncList<bool>();
 
+    LAK_NetworkRoomPlayer()
+    {
+        if (ColorActiveList.Count != 10)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                ColorActiveList.Add(true);
+            }
+        }
+
+
+        ColorActiveList.Callback += OnColorSelectCallback;
+
+    }
+
+
+
+    private void OnColorSelectCallback(SyncList<bool>.Operation op, int itemIndex, bool oldItem, bool newItem)
+    {
+        
+    }
+
+    [Command]
+    public void ColorSelected(int index, bool val)
+    {
+        if (index >= 0 && index < 10)
+        {
+            ColorActiveList[index] = val;
+        }
+        RpcUpdateColorSelected(index, val);
+    }
+
+    [ClientRpc]
+    void RpcUpdateColorSelected(int index, bool val)
+    {
+       roomManager.UpdateColorVal(index,val);
+    }
 
 
     private LAK_NetworkRoomManager roomManager { get { return getRoom(); }  }
@@ -25,9 +60,26 @@ public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
 
     private LAK_NetworkRoomManager getRoom()
     {
-    return (LAK_NetworkRoomManager)FindObjectOfType(typeof(LAK_NetworkRoomManager));
+        return (LAK_NetworkRoomManager)FindObjectOfType(typeof(LAK_NetworkRoomManager));
 
     }
+
+    public void ColorListUpdate(bool[] oldColorList, bool[] newColorList)
+    {
+
+    }
+
+/*    [Server]
+    public override void OnStartServer()
+    {
+        ColorList = new bool[10];
+        for (int i = 0; i < 10; i++)
+        {
+            ColorList[i] = true;
+        }
+
+        Debug.Log(ColorList);
+    }*/
 
     public override void ReadyStateChanged(bool oldReadyState, bool newReadyState)
     {
@@ -68,11 +120,11 @@ public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
        roomManager?.AnyClientUpdate(this);
     }
 
-    /*public void OnSelectionUIColor(Color oldColor, Color newColor)
+    public void OnSelectionUIColor(Color oldColor, Color newColor)
     {
        
-            ColorToHide = newColor;
+            //ColorToHide = newColor;
       
-     }*/
+     }
 }
 

@@ -1,17 +1,42 @@
 using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEditor.Progress;
 
 
 public class LAK_NetworkRoomManager : NetworkRoomManager 
 {
+    // for UI
     public UnityEvent OnClientListChange = new UnityEvent();
     public UnityEvent OnClientReadyStateChanged = new UnityEvent();
-    // public UnityEvent OnPlayerColorSelection = new UnityEvent();
-    
+    public UnityEvent OnPlayerColorSelection = new UnityEvent();
 
+
+    /// <summary>
+    /// ///// actual list of avalible colors
+    /// </summary>
+    public List<bool> ColorsAvaliblity = new List<bool> { true, true, true, true, true, true, true, true, true, true };
+
+    public void UpdateColorVal(int index, bool val)
+    {
+        if (index >= 0 && index < 10)
+        {
+            ColorsAvaliblity[index] = val;
+        }
+
+
+        // remove later
+        for (int i = 0; i < 10; i++)
+        {
+            Debug.LogError("Color (" + i + ") " + ColorsAvaliblity[i]);
+        }
+
+        OnPlayerColorSelection.Invoke();
+
+    }
 
     public override void OnRoomClientEnter()
     {

@@ -3,143 +3,194 @@ using UnityEngine.UI;
 using Mirror;
 using System.Collections.Generic;
 using System;
+using UnityEditor.EditorTools;
 
 public class ColorSelectionUI : NetworkBehaviour
 {
-    public Image colorPreviewImage;
-    public Button[] colorButtons;
-    public Color selectedColor;
-
-    [Header("Color Selection")]
     [SerializeField]
-    private Button ReadyButton;
-    [SerializeField]
-    private GameObject ColorSelectionPanel;
-    [SerializeField]
-    LAK_NetworkRoomPlayer RoomPlayer = null;
-
-    [SyncVar(hook = nameof(OnChoosingColor))]
-    public bool isButtonInteracting = true;
-    [SyncVar(hook = nameof(OnSelectionUIColor))]
-    public Color ColorToHide;
-
+    LAK_NetworkRoomPlayer CurrentNetworkPlayer = null;
+    LAK_NetworkRoomManager RoomManager = null;
     public static Color DisplayColor { get; private set; }
 
-    private Dictionary<Color, bool> colorAvailability = new Dictionary<Color, bool>();
+    [SerializeField]
+    private List<Button> buttons = new List<Button>();
 
+    [SerializeField]
+    private List<Color> Colors = new List<Color>();
 
-    private void Start()
+    public void ColorSelect(int index)
     {
-        /* this.gameObject.SetActive(true);
-          Debug.Log(":::"+this.name);
-          RoomPlayerPanel.SetActive(false);*/
-
-
+        var Player = (CurrentNetworkPlayer == null) ? FindNetworkRoomPlayer() : CurrentNetworkPlayer;
+        Player.ColorSelected(index, false);
     }
 
-    private void OnEnable()
+    // falue = taken ,  true = free
+
+    LAK_NetworkRoomPlayer FindNetworkRoomPlayer()
     {
-        if (RoomPlayer == null) RoomPlayer = (LAK_NetworkRoomPlayer)FindObjectOfType(typeof(LAK_NetworkRoomPlayer));
-      
-          ColorToHide = selectedColor;
-        // Initialize color buttons with click events
-        foreach (Button button in colorButtons)
+        var list = Resources.FindObjectsOfTypeAll(typeof(LAK_NetworkRoomPlayer));
+
+        foreach (var player in list)
         {
-            Color buttonColor = button.GetComponent<Image>().color;
-            button.onClick.AddListener(() => OnColorButtonClick(buttonColor));
-        }
-
-        InitializeColorAvailability();
-    }
-
-    private void InitializeColorAvailability()
-    {
-        // Initialize color availability dictionary
-        foreach (Button button in colorButtons)
-        {
-            Color buttonColor = button.GetComponent<Image>().color;
-            colorAvailability[buttonColor] = true;
-        }
-    }
-
-    public void OnChoosingColor(bool _, bool newval)
-    {
-        isButtonInteracting = newval;
-    }
-
-    public void OnColorButtonClick(Color _color)    // this method is called on color button click
-    {
-        if (isButtonInteracting && colorAvailability.ContainsKey(_color))
-        {
-            // Set the selected color when a color button is clicked
-            selectedColor = _color;
-            colorPreviewImage.color = _color;
-            PlayerPrefs.SetFloat("PlayerColorR", selectedColor.r);
-            PlayerPrefs.SetFloat("PlayerColorG", selectedColor.g);
-            PlayerPrefs.SetFloat("PlayerColorB", selectedColor.b);
-            PlayerPrefs.SetFloat("PlayerColorA", selectedColor.a);
-            DisplayColor = _color;
-            ColorToHide = _color;
-
-            // Reserve the selected color
-            colorAvailability[selectedColor] = false;
-            
-
-            // Notify the server about the color selection
-            CmdSelectColor(_color);
-        }
-    }
-
-    [Command]
-    private void CmdSelectColor(Color color)
-    {
-        selectedColor = color;
-        DisplayColor = color;
-        ColorToHide = color;
-        // colorAvailability[color] = false;
-
-        RpcUpdateSelectedColor(color);   // Notify all clients about the color selection
-    }
-
-    [ClientRpc]
-    private void RpcUpdateSelectedColor(Color color)
-    {                           // Update the selected color on all clients
-        selectedColor = color;
-        DisplayColor = color;
-         // SetButtonInteractable(color, false);
-    }
-
-    private void SetButtonInteractable(Color color, bool interactable)
-    {
-        foreach (Button button in colorButtons)
-        {
-            if (button.GetComponent<Image>().color == color)
+            var temp = player as LAK_NetworkRoomPlayer;
+            Debug.Log(temp.index);
+            if (temp.isLocalPlayer)
             {
-                button.interactable = interactable;
-                break;
+                CurrentNetworkPlayer = temp;
+                return CurrentNetworkPlayer;
             }
         }
+
+        return null;
     }
 
-    public void OnSetColorButtonClick()
+    void Start()
     {
-         
-            isButtonInteracting = false;                                              // Disable the selected color button on all clients
-            colorAvailability[selectedColor] = false;
-            SetButtonInteractable(selectedColor, false);
-            ReadyButton.gameObject.SetActive(true);
-        
-        // Activate the player panel and deactivate the color selection panel
-        /* ColorSelectionPanel.SetActive(false);
-         RoomPlayerPanel.SetActive(true);*/
-
+        if (RoomManager == null) RoomManager = (LAK_NetworkRoomManager)FindObjectOfType(typeof(LAK_NetworkRoomManager));
+        RoomManager.OnPlayerColorSelection.AddListener(UpdateUI);
     }
 
-    public void OnSelectionUIColor(Color oldColor, Color newColor)
+
+    private void UpdateUI()
     {
-
-        ColorToHide = newColor;
-
+        // logic
     }
+
+    /*
+        public Image colorPreviewImage;
+        public Button[] colorButtons;
+        public Color selectedColor;
+
+        [Header("Color Selection")]
+        [SerializeField]
+        private Button ReadyButton;
+        [SerializeField]
+        private GameObject ColorSelectionPanel;
+        [SerializeField]
+        LAK_NetworkRoomPlayer RoomPlayer = null;
+
+        [SyncVar(hook = nameof(OnChoosingColor))]
+        public bool isButtonInteracting = true;
+        [SyncVar(hook = nameof(OnSelectionUIColor))]
+        public Color ColorToHide;
+
+        public static Color DisplayColor { get; private set; }
+
+        private Dictionary<Color, bool> colorAvailability = new Dictionary<Color, bool>();
+
+
+        private void Start()
+        {
+            *//* this.gameObject.SetActive(true);
+              Debug.Log(":::"+this.name);
+              RoomPlayerPanel.SetActive(false);*//*
+
+
+        }
+
+        private void OnEnable()
+        {
+            if (RoomPlayer == null) RoomPlayer = (LAK_NetworkRoomPlayer)FindObjectOfType(typeof(LAK_NetworkRoomPlayer));
+
+              ColorToHide = selectedColor;
+            // Initialize color buttons with click events
+            foreach (Button button in colorButtons)
+            {
+                Color buttonColor = button.GetComponent<Image>().color;
+                button.onClick.AddListener(() => OnColorButtonClick(buttonColor));
+            }
+
+            InitializeColorAvailability();
+        }
+
+        private void InitializeColorAvailability()
+        {
+            // Initialize color availability dictionary
+            foreach (Button button in colorButtons)
+            {
+                Color buttonColor = button.GetComponent<Image>().color;
+                colorAvailability[buttonColor] = true;
+            }
+        }
+
+        public void OnChoosingColor(bool _, bool newval)
+        {
+            isButtonInteracting = newval;
+        }
+
+        public void OnColorButtonClick(Color _color)    // this method is called on color button click
+        {
+            if (isButtonInteracting && colorAvailability.ContainsKey(_color))
+            {
+                // Set the selected color when a color button is clicked
+                selectedColor = _color;
+                colorPreviewImage.color = _color;
+                PlayerPrefs.SetFloat("PlayerColorR", selectedColor.r);
+                PlayerPrefs.SetFloat("PlayerColorG", selectedColor.g);
+                PlayerPrefs.SetFloat("PlayerColorB", selectedColor.b);
+                PlayerPrefs.SetFloat("PlayerColorA", selectedColor.a);
+                DisplayColor = _color;
+                ColorToHide = _color;
+
+                // Reserve the selected color
+                colorAvailability[selectedColor] = false;
+
+
+                // Notify the server about the color selection
+                CmdSelectColor(_color);
+            }
+        }
+
+        [Command]
+        private void CmdSelectColor(Color color)
+        {
+            selectedColor = color;
+            DisplayColor = color;
+            ColorToHide = color;
+            // colorAvailability[color] = false;
+
+            RpcUpdateSelectedColor(color);   // Notify all clients about the color selection
+        }
+
+        [ClientRpc]
+        private void RpcUpdateSelectedColor(Color color)
+        {                           // Update the selected color on all clients
+            selectedColor = color;
+            DisplayColor = color;
+             // SetButtonInteractable(color, false);
+        }
+
+        private void SetButtonInteractable(Color color, bool interactable)
+        {
+            foreach (Button button in colorButtons)
+            {
+                if (button.GetComponent<Image>().color == color)
+                {
+                    button.interactable = interactable;
+                    break;
+                }
+            }
+        }
+
+        public void OnSetColorButtonClick()
+        {
+
+                isButtonInteracting = false;                                              // Disable the selected color button on all clients
+                colorAvailability[selectedColor] = false;
+                SetButtonInteractable(selectedColor, false);
+                ReadyButton.gameObject.SetActive(true);
+
+            // Activate the player panel and deactivate the color selection panel
+            *//* ColorSelectionPanel.SetActive(false);
+             RoomPlayerPanel.SetActive(true);*//*
+
+        }
+
+        public void OnSelectionUIColor(Color oldColor, Color newColor)
+        {
+
+            ColorToHide = newColor;
+
+        }*/
 
 }
