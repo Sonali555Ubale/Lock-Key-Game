@@ -3912,7 +3912,6 @@ MonoBehaviour:
   - {fileID: 2298841712087023136}
   - {fileID: 8113377156651271238}
   - {fileID: 5033137132284082059}
-  Colors: []
   colorPreviewImage: {fileID: 7890720169357745991}
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   ReadyButton: {fileID: 7097443560001198500}

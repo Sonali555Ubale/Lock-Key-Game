@@ -22,12 +22,12 @@ public class ColorSelectionUI : NetworkBehaviour
     public Color selectedColor;
     private bool isButtonInteracting = true;
     private int indexValue;
-
+    
     [Header("Color Selection")]
     [SerializeField]
     private Button ReadyButton;
     [SerializeField]
-    private Button SetButton;
+    public Button SetButton;
     [SerializeField]
     private GameObject ColorSelectionPanel;
     
@@ -38,7 +38,7 @@ public class ColorSelectionUI : NetworkBehaviour
         Player.ColorSelected(index, false);
     }
 
-    // falue = taken ,  true = free
+    // false = taken ,  true = free
 
     LAK_NetworkRoomPlayer FindNetworkRoomPlayer()
     {
@@ -79,23 +79,22 @@ public class ColorSelectionUI : NetworkBehaviour
     {
         Debug.Log("This is Update UI Fun:::: index Val is now" +RoomManager.indexVal);
 
-        if(isButtonInteracting == false) 
+        if(!isButtonInteracting && SetButton.interactable==true ) 
         {
             indexValue = RoomManager.indexVal;
             colorButtons[indexValue].interactable = false;
+            SetButton.interactable = false;
         }
             Debug.Log(" color disabled::" + colorButtons[indexValue]);
            
         
-
-      
-
     }
 
     public void OnColorButtonClick(Color _color)    // this method is called on color button click
     {
+
+        // Set the selected color when a color button is clicked
        
-            // Set the selected color when a color button is clicked
             selectedColor = _color;
             colorPreviewImage.color = _color;
             PlayerPrefs.SetFloat("PlayerColorR", selectedColor.r);
@@ -103,7 +102,7 @@ public class ColorSelectionUI : NetworkBehaviour
             PlayerPrefs.SetFloat("PlayerColorB", selectedColor.b);
             PlayerPrefs.SetFloat("PlayerColorA", selectedColor.a);
             DisplayColor = _color;
-          
+        
 
             // Notify the server about the color selection
           // CmdSelectColor(_color);
@@ -131,14 +130,17 @@ public class ColorSelectionUI : NetworkBehaviour
 
     public void OnSetColorButtonClick()
     {
-        if (isButtonInteracting)
+        if (isButtonInteracting  && SetButton.interactable==true)
         {
-        
             isButtonInteracting = false;
+            CmdSelectColor(selectedColor);
+            //SetButton.interactable = false;
         }
-        CmdSelectColor(DisplayColor);
+         
+
         ReadyButton.gameObject.SetActive(true);
        
+
 
     }
 

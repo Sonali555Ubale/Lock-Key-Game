@@ -37,20 +37,21 @@ public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
         
     }
 
-    [Command]
+   [Command]
     public void ColorSelected(int index, bool val)
     {
-        if (index >= 0 && index < 10)
+        if (index >= 0 && index < ColorActiveList.Count)
         {
             ColorActiveList[index] = val;
+            RpcUpdateColorSelected(index, val);
         }
-        RpcUpdateColorSelected(index, val);
+        
     }
 
     [ClientRpc]
     void RpcUpdateColorSelected(int index, bool val)
     {
-       roomManager.UpdateColorVal(index,val);
+       roomManager?.UpdateColorVal(index,val);
         
     }
 
@@ -70,7 +71,7 @@ public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
 
     }
 
-/*    [Server]
+  /*  [Server]
     public override void OnStartServer()
     {
         ColorList = new bool[10];
