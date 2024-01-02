@@ -22,6 +22,7 @@ public class ColorSelectionUI : NetworkBehaviour
     public Color selectedColor;
     private bool isButtonInteracting = true;
     private int indexValue;
+    private bool flag = false;
     
     [Header("Color Selection")]
     [SerializeField]
@@ -79,11 +80,14 @@ public class ColorSelectionUI : NetworkBehaviour
     {
         Debug.Log("This is Update UI Fun:::: index Val is now" +RoomManager.indexVal);
 
-        if(!isButtonInteracting && SetButton.interactable==true ) 
+        if(!isButtonInteracting && !flag) 
         {
+           
             indexValue = RoomManager.indexVal;
             colorButtons[indexValue].interactable = false;
-            SetButton.interactable = false;
+         
+            
+
         }
             Debug.Log(" color disabled::" + colorButtons[indexValue]);
            
@@ -94,7 +98,8 @@ public class ColorSelectionUI : NetworkBehaviour
     {
 
         // Set the selected color when a color button is clicked
-       
+        if (isButtonInteracting && SetButton.interactable ==true)
+        {
             selectedColor = _color;
             colorPreviewImage.color = _color;
             PlayerPrefs.SetFloat("PlayerColorR", selectedColor.r);
@@ -102,10 +107,10 @@ public class ColorSelectionUI : NetworkBehaviour
             PlayerPrefs.SetFloat("PlayerColorB", selectedColor.b);
             PlayerPrefs.SetFloat("PlayerColorA", selectedColor.a);
             DisplayColor = _color;
-        
-
+            CmdSelectColor(_color);
+        }
             // Notify the server about the color selection
-          // CmdSelectColor(_color);
+          
         
     }
 
@@ -115,7 +120,7 @@ public class ColorSelectionUI : NetworkBehaviour
         selectedColor = color;
         DisplayColor = color;
        
-        // colorAvailability[color] = false;
+        //colorAvailability[color] = false;
 
         RpcUpdateSelectedColor(color);   // Notify all clients about the color selection
     }
@@ -133,8 +138,14 @@ public class ColorSelectionUI : NetworkBehaviour
         if (isButtonInteracting  && SetButton.interactable==true)
         {
             isButtonInteracting = false;
-            CmdSelectColor(selectedColor);
-            //SetButton.interactable = false;
+       
+         //   CmdSelectColor(selectedColor);
+       
+            SetButton.interactable = false;
+            if (!SetButton.interactable)
+                flag = true;
+            else
+                flag = false;
         }
          
 
