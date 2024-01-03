@@ -102,7 +102,7 @@ public class ColorSelectionUI : NetworkBehaviour
     {
 
         // Set the selected color when a color button is clicked
-        if (isButtonInteracting && SetButton.interactable ==true)
+        if (!isButtonInteracting && flag)
         {
             selectedColor = _color;
             colorPreviewImage.color = _color;
