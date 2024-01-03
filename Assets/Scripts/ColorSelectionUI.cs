@@ -80,14 +80,18 @@ public class ColorSelectionUI : NetworkBehaviour
     {
         Debug.Log("This is Update UI Fun:::: index Val is now" +RoomManager.indexVal);
 
-        if(!isButtonInteracting && !flag) 
+        if(isButtonInteracting==false && flag) 
         {
-           
             indexValue = RoomManager.indexVal;
-            colorButtons[indexValue].interactable = false;
-         
-            
+            if (colorPreviewImage.color == colorButtons[indexValue].GetComponent<Image>().color)
+            {
+              
+                colorButtons[indexValue].interactable = false;
+                isButtonInteracting = true;
+                flag = false;
 
+            }
+           
         }
             Debug.Log(" color disabled::" + colorButtons[indexValue]);
            
@@ -137,15 +141,14 @@ public class ColorSelectionUI : NetworkBehaviour
     {
         if (isButtonInteracting  && SetButton.interactable==true)
         {
+            flag = true;
             isButtonInteracting = false;
        
          //   CmdSelectColor(selectedColor);
-       
+         if(flag==false)
             SetButton.interactable = false;
-            if (!SetButton.interactable)
-                flag = true;
-            else
-                flag = false;
+           
+           
         }
          
 
