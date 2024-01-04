@@ -145,7 +145,7 @@ public class ColorSelectionUI : NetworkBehaviour
             flag = true;
             // CmdSelectColor(selectedColor);
             SetButton.interactable = false;
-        }
+                }
         CmdSelectColor(DisplayColor);
 
 

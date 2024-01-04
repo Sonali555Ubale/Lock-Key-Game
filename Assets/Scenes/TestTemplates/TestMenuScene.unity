@@ -325,15 +325,15 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4289728051
+  m_fontColor: {r: 0.2, g: 0.05490196, b: 0.6901961, a: 1}
   m_enableVertexGradient: 1
   m_colorMode: 1
   m_fontColorGradient:
-    topLeft: {r: 0.7998467, g: 0.21568625, b: 0.972549, a: 1}
-    topRight: {r: 0.7764706, g: 0.007843138, b: 0.9607843, a: 1}
-    bottomLeft: {r: 0.7998467, g: 0.21568625, b: 0.972549, a: 1}
-    bottomRight: {r: 0.7764706, g: 0.007843138, b: 0.9607843, a: 1}
+    topLeft: {r: 0.31764704, g: 0.7372549, b: 0.46186906, a: 1}
+    topRight: {r: 0.007843138, g: 0.7137255, b: 0.9607843, a: 1}
+    bottomLeft: {r: 0.31764704, g: 0.7372549, b: 0.46186906, a: 1}
+    bottomRight: {r: 0.007843138, g: 0.7137255, b: 0.9607843, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -2711,7 +2711,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4282400944
-  m_fontColor: {r: 0.6886792, g: 0.2512163, b: 0.2512163, a: 1}
+  m_fontColor: {r: 0.32156864, g: 0.27058825, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2999,8 +2999,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282400944
-  m_fontColor: {r: 0.6886792, g: 0.2512163, b: 0.2512163, a: 1}
+    rgba: 4289435136
+  m_fontColor: {r: 0.2, g: 0.05490196, b: 0.6901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4139,7 +4139,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4282400944
-  m_fontColor: {r: 0.6886792, g: 0.2512163, b: 0.2512163, a: 1}
+  m_fontColor: {r: 0.2, g: 0.05490196, b: 0.6901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4666,6 +4666,14 @@ MonoBehaviour:
   OnClientReadyStateChanged:
     m_PersistentCalls:
       m_Calls: []
+  OnPlayerColorSelection:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerColorSelectionEmogy:
+    m_PersistentCalls:
+      m_Calls: []
+  indexVal: 0
+  ColorsAvaliblity: 01010101010101010101
 --- !u!1 &1399825952
 GameObject:
   m_ObjectHideFlags: 0
@@ -5097,8 +5105,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294311807
-  m_fontColor: {r: 0.49685526, g: 1, b: 0.9606918, a: 1}
+    rgba: 4289728051
+  m_fontColor: {r: 0.2, g: 0.05490196, b: 0.6901961, a: 1}
   m_enableVertexGradient: 1
   m_colorMode: 1
   m_fontColorGradient:
@@ -6083,7 +6091,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  colorPreviewImage: {fileID: 898563110}
+  CurrentNetworkPlayer: {fileID: 0}
   colorButtons:
   - {fileID: 1818801618}
   - {fileID: 172052283}
@@ -6095,10 +6103,12 @@ MonoBehaviour:
   - {fileID: 2117095569}
   - {fileID: 1216442274}
   - {fileID: 277018908}
+  Colors: []
+  colorPreviewImage: {fileID: 898563110}
   selectedColor: {r: 1, g: 1, b: 1, a: 1}
-  RoomPlayerPanel: {fileID: 0}
+  ReadyButton: {fileID: 0}
+  SetButton: {fileID: 0}
   ColorSelectionPanel: {fileID: 0}
-  isButtonInteracting: 0
 --- !u!114 &1853063475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6702,8 +6712,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282400944
-  m_fontColor: {r: 0.6886792, g: 0.2512163, b: 0.2512163, a: 1}
+    rgba: 4289435136
+  m_fontColor: {r: 0.2, g: 0.05490196, b: 0.6901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

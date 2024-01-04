@@ -13,6 +13,7 @@ public class LAK_NetworkRoomManager : NetworkRoomManager
     public UnityEvent OnClientListChange = new UnityEvent();
     public UnityEvent OnClientReadyStateChanged = new UnityEvent();
     public UnityEvent OnPlayerColorSelection = new UnityEvent();
+    public UnityEvent OnPlayerColorSelectionEmogy = new UnityEvent(); 
 
     public int indexVal = 0;
     /// <summary>
@@ -44,12 +45,14 @@ public class LAK_NetworkRoomManager : NetworkRoomManager
     public override void OnRoomClientEnter()
     {
         OnClientListChange.Invoke();
+      // OnPlayerColorSelectionEmogy.Invoke();
         Debug.Log("Client connected ");
     }
 
     public override void OnRoomClientExit()
     {
         OnClientListChange.Invoke();
+     //   OnPlayerColorSelectionEmogy.Invoke();
         Debug.Log("Client Gela ree ");
     }
 
