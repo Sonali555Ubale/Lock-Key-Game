@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using static UnityEditor.Progress;
 
 
-public class LAK_NetworkRoomManager : NetworkRoomManager 
+public class LAK_NetworkRoomManager : NetworkRoomManager
 {
     // for UI
     public UnityEvent OnClientListChange = new UnityEvent();
@@ -39,7 +39,7 @@ public class LAK_NetworkRoomManager : NetworkRoomManager
         OnPlayerColorSelection.Invoke();
 
     }
-   
+
 
     public override void OnRoomClientEnter()
     {
@@ -82,5 +82,5 @@ public class LAK_NetworkRoomManager : NetworkRoomManager
         OnClientReadyStateChanged.Invoke();
     }
 
-   
+
 }

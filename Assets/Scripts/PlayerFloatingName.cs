@@ -49,7 +49,7 @@ public class PlayerFloatingName : NetworkBehaviour
         // player info sent to server, then server updates sync vars which handles it on all clients
         playerName = _name;
         playerNameText.text = _name;
-      
+
         RpcUpdatePlayerName(_name);
     }
 
@@ -65,13 +65,13 @@ public class PlayerFloatingName : NetworkBehaviour
         PlayerColor = _color;
         PlayerSprite.color = _color;
 
-        RpcUpdatePlayerColor( _color);
+        RpcUpdatePlayerColor(_color);
     }
 
     [ClientRpc]
     void RpcUpdatePlayerColor(Color _color)
     {
-       PlayerSprite.color = _color;
+        PlayerSprite.color = _color;
     }
 
 
@@ -80,11 +80,11 @@ public class PlayerFloatingName : NetworkBehaviour
     {
         OnStartLocalPlayer();
         colorSelectionUI = (ColorSelectionUI)FindAnyObjectByType(typeof(ColorSelectionUI));
-      
+
     }
     void Update()
     {
-     
+
         if (!isLocalPlayer)
         {
             // make non-local players run this

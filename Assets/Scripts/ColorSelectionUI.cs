@@ -25,7 +25,7 @@ public class ColorSelectionUI : NetworkBehaviour
 
     [SyncVar]
     private bool flag = false;
-    
+
     [Header("Color Selection")]
     [SerializeField]
     private Button ReadyButton;
@@ -33,7 +33,7 @@ public class ColorSelectionUI : NetworkBehaviour
     public Button SetButton;
     [SerializeField]
     private GameObject ColorSelectionPanel;
-    
+
 
     public void ColorSelect(int index)
     {
@@ -64,7 +64,7 @@ public class ColorSelectionUI : NetworkBehaviour
     void Start()
     {
         if (RoomManager == null) RoomManager = (LAK_NetworkRoomManager)FindObjectOfType(typeof(LAK_NetworkRoomManager));
-          RoomManager.OnPlayerColorSelection.AddListener(UpdateUI);
+        RoomManager.OnPlayerColorSelection.AddListener(UpdateUI);
     }
     private void OnEnable()
     {
@@ -80,20 +80,20 @@ public class ColorSelectionUI : NetworkBehaviour
     }
     private void UpdateUI()
     {
-        Debug.Log("This is Update UI Fun:::: index Val is now" +RoomManager.indexVal);
+        Debug.Log("This is Update UI Fun:::: index Val is now" + RoomManager.indexVal);
         if (isButtonInteracting && SetButton.interactable == true)
         {
-           // if (colorPreviewImage.color == colorButtons[indexValue].GetComponent<Image>().color)
-           // {
-                indexValue = RoomManager.indexVal;
-                colorButtons[indexValue].interactable = false;
-                  flag = false;
+            // if (colorPreviewImage.color == colorButtons[indexValue].GetComponent<Image>().color)
+            // {
+            indexValue = RoomManager.indexVal;
+            colorButtons[indexValue].interactable = false;
+            flag = false;
             //}
         }
-      
+
         Debug.Log(" color disabled::" + colorButtons[indexValue]);
-           
-        
+
+
     }
 
     public void OnColorButtonClick(Color _color)    // this method is called on color button click
@@ -109,11 +109,11 @@ public class ColorSelectionUI : NetworkBehaviour
             PlayerPrefs.SetFloat("PlayerColorB", selectedColor.b);
             PlayerPrefs.SetFloat("PlayerColorA", selectedColor.a);
             DisplayColor = _color;
-           CmdSelectColor(_color);
-       }
-            // Notify the server about the color selection
-          
-        
+            CmdSelectColor(_color);
+        }
+        // Notify the server about the color selection
+
+
     }
 
     [Command]
@@ -121,7 +121,7 @@ public class ColorSelectionUI : NetworkBehaviour
     {
         selectedColor = color;
         DisplayColor = color;
-       
+
         //colorAvailability[color] = false;
 
         RpcUpdateSelectedColor(color);   // Notify all clients about the color selection
@@ -137,21 +137,21 @@ public class ColorSelectionUI : NetworkBehaviour
 
     public void OnSetColorButtonClick()
     {
-       
-            if (isButtonInteracting && SetButton.interactable == true)
-            {
 
-                isButtonInteracting = false;
-                flag = true;
-               // CmdSelectColor(selectedColor);
-                SetButton.interactable = false;
-            }
-        CmdSelectColor(DisplayColor);   
-        
-         
+        if (isButtonInteracting && SetButton.interactable == true)
+        {
+
+            isButtonInteracting = false;
+            flag = true;
+            // CmdSelectColor(selectedColor);
+            SetButton.interactable = false;
+        }
+        CmdSelectColor(DisplayColor);
+
+
 
         ReadyButton.gameObject.SetActive(true);
-       
+
 
     }
 
