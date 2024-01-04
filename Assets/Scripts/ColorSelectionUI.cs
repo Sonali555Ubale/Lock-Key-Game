@@ -22,6 +22,8 @@ public class ColorSelectionUI : NetworkBehaviour
     public Color selectedColor;
     private bool isButtonInteracting = true;
     private int indexValue;
+
+    [SyncVar]
     private bool flag = false;
     
     [Header("Color Selection")]
@@ -79,21 +81,17 @@ public class ColorSelectionUI : NetworkBehaviour
     private void UpdateUI()
     {
         Debug.Log("This is Update UI Fun:::: index Val is now" +RoomManager.indexVal);
-
-        if(isButtonInteracting==false && flag) 
+        if (isButtonInteracting && SetButton.interactable == true)
         {
-            indexValue = RoomManager.indexVal;
-            if (colorPreviewImage.color == colorButtons[indexValue].GetComponent<Image>().color)
-            {
-              
+           // if (colorPreviewImage.color == colorButtons[indexValue].GetComponent<Image>().color)
+           // {
+                indexValue = RoomManager.indexVal;
                 colorButtons[indexValue].interactable = false;
-                isButtonInteracting = true;
-                flag = false;
-
-            }
-           
+                  flag = false;
+            //}
         }
-            Debug.Log(" color disabled::" + colorButtons[indexValue]);
+      
+        Debug.Log(" color disabled::" + colorButtons[indexValue]);
            
         
     }
@@ -102,7 +100,7 @@ public class ColorSelectionUI : NetworkBehaviour
     {
 
         // Set the selected color when a color button is clicked
-        if (!isButtonInteracting && flag)
+        if (isButtonInteracting || !flag)
         {
             selectedColor = _color;
             colorPreviewImage.color = _color;
@@ -111,8 +109,8 @@ public class ColorSelectionUI : NetworkBehaviour
             PlayerPrefs.SetFloat("PlayerColorB", selectedColor.b);
             PlayerPrefs.SetFloat("PlayerColorA", selectedColor.a);
             DisplayColor = _color;
-            CmdSelectColor(_color);
-        }
+           CmdSelectColor(_color);
+       }
             // Notify the server about the color selection
           
         
@@ -139,22 +137,21 @@ public class ColorSelectionUI : NetworkBehaviour
 
     public void OnSetColorButtonClick()
     {
-        if (isButtonInteracting  && SetButton.interactable==true)
-        {
-            flag = true;
-            isButtonInteracting = false;
        
-         //   CmdSelectColor(selectedColor);
-         if(flag==false)
-            SetButton.interactable = false;
-           
-           
-        }
+            if (isButtonInteracting && SetButton.interactable == true)
+            {
+
+                isButtonInteracting = false;
+                flag = true;
+               // CmdSelectColor(selectedColor);
+                SetButton.interactable = false;
+            }
+        CmdSelectColor(DisplayColor);   
+        
          
 
         ReadyButton.gameObject.SetActive(true);
        
-
 
     }
 

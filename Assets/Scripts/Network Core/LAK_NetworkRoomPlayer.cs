@@ -12,6 +12,11 @@ public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
     [Tooltip("Diagnostic Player name")]
     [SyncVar(hook = nameof(PlayerNameUpdate))]
     public string DisplayName;
+    [Tooltip("Diagnostic Player Color")]
+    [SyncVar(hook = nameof(PlayerColorUpdate))]
+    public Color DisplayColor;
+     public ColorSelectionUI colorSelectionUI;
+
 
     public readonly SyncList<bool> ColorActiveList = new SyncList<bool>();
 
@@ -95,37 +100,43 @@ public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
 
         roomManager?.AnyClientUpdate(this);
     }
+    public void PlayerColorUpdate(Color _, Color newColor)
+    {
+        DisplayColor = newColor;
+
+        roomManager?.AnyClientUpdate(this);
+    }
+   
 
 
     public override void OnStartLocalPlayer()
     {
        // roomManager = (LAK_NetworkRoomManager)FindObjectOfType(typeof(LAK_NetworkRoomManager));
         string name = PlayerNameInput.DisplayName;
-        CmdSetupPlayerName(name);
+        Color _color = ColorSelectionUI.DisplayColor;
+        Debug.Log("Display Color From COLORSELECTIONUII" + ColorSelectionUI.DisplayColor);
+        CmdSetupPlayerName(name, _color);
         roomManager?.AnyClientUpdate(this);
 
     }
 
     [Command]
-    public void CmdSetupPlayerName(string _name)
+    public void CmdSetupPlayerName(string _name, Color color)
     {
         DisplayName = _name;
-        RpcUpdatePlayerName(_name);
+        DisplayColor = color;
+        RpcUpdatePlayerName(_name, color);
        
     }
 
     [ClientRpc]
-    void RpcUpdatePlayerName(string _name)
+    void RpcUpdatePlayerName(string _name, Color color)
     {
         DisplayName = _name;
-       roomManager?.AnyClientUpdate(this);
+        DisplayColor = color;
+        roomManager?.AnyClientUpdate(this);
     }
 
-    public void OnSelectionUIColor(Color oldColor, Color newColor)
-    {
-       
-            //ColorToHide = newColor;
-      
-     }
+    
 }
 
