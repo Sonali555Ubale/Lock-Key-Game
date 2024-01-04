@@ -88,6 +88,7 @@ public class ColorSelectionUI : NetworkBehaviour
             indexValue = RoomManager.indexVal;
             colorButtons[indexValue].interactable = false;
             flag = false;
+
             //}
         }
 
@@ -121,7 +122,7 @@ public class ColorSelectionUI : NetworkBehaviour
     {
         selectedColor = color;
         DisplayColor = color;
-
+      //  PlayerRoomUIManager.Instance.UpdatePlayerUIColor(CurrentNetworkPlayer, color);
         //colorAvailability[color] = false;
 
         RpcUpdateSelectedColor(color);   // Notify all clients about the color selection
@@ -132,6 +133,7 @@ public class ColorSelectionUI : NetworkBehaviour
     {                           // Update the selected color on all clients
         selectedColor = color;
         DisplayColor = color;
+      //  PlayerRoomUIManager.Instance.UpdatePlayerUIColor(CurrentNetworkPlayer,color);
         // SetButtonInteractable(color, false);
     }
 
@@ -145,7 +147,8 @@ public class ColorSelectionUI : NetworkBehaviour
             flag = true;
             // CmdSelectColor(selectedColor);
             SetButton.interactable = false;
-                }
+            PlayerRoomUIManager.Instance.UpdatePlayerUIColor(CurrentNetworkPlayer, DisplayColor);
+        }
         CmdSelectColor(DisplayColor);
 
 

@@ -125,6 +125,7 @@ public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
     {
         DisplayName = _name;
         DisplayColor = color;
+        PlayerRoomUIManager.Instance.UpdatePlayerUIColor(this, color);
         RpcUpdatePlayerName(_name, color);
        
     }
@@ -134,6 +135,7 @@ public class LAK_NetworkRoomPlayer : NetworkRoomPlayer
     {
         DisplayName = _name;
         DisplayColor = color;
+        PlayerRoomUIManager.Instance.UpdatePlayerUIColor(this, color);
         roomManager?.AnyClientUpdate(this);
     }
 

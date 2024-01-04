@@ -21,10 +21,44 @@ public class PlayerRoomUIManager : MonoBehaviour
     [SerializeField]
     LAK_NetworkRoomManager RoomManager = null;
 
-    private static PlayerRoomUIManager instance = null;
+
+    private static PlayerRoomUIManager instance;
     public string Pname;
     public Color PColor;
     public Image PreviewImg;
+
+    public static PlayerRoomUIManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                // Optionally, find the instance in the scene if it's not already set.
+                instance = FindObjectOfType<PlayerRoomUIManager>();
+                if (instance == null)
+                {
+                    // Create a new GameObject with this component if instance not found.
+                    instance = new GameObject("PlayerRoomUIManager").AddComponent<PlayerRoomUIManager>();
+                }
+            }
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject); // Ensures only one instance is active.
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Optionally keep this object alive when loading new scenes.
+        }
+    }
+
+
 
 
     private void Start()
@@ -37,13 +71,13 @@ public class PlayerRoomUIManager : MonoBehaviour
 
 
         Pname = PlayerNameInput.DisplayName;
-       // PColor = ColorSelectionUI.DisplayColor;
+        // PColor = ColorSelectionUI.DisplayColor;
 
 
         // Listen  to event of change in client list
         RoomManager.OnClientListChange.AddListener(OnPlayerChange);
         RoomManager.OnClientReadyStateChanged.AddListener(OnPlayerReadyStateChange);
-      //  RoomManager.OnPlayerColorSelectionEmogy.AddListener(UpdatePlayerUIList);
+        //  RoomManager.OnPlayerColorSelectionEmogy.AddListener(UpdatePlayerUIList);
 
 
     }
@@ -100,20 +134,40 @@ public class PlayerRoomUIManager : MonoBehaviour
         TextMeshProUGUI[] list = element.GetComponentsInChildren<TextMeshProUGUI>();
         list[0].text = playername;
         list[1].text = readystatus ? "Ready" : "Not Ready";
+      
 
         // Find the PreviewImage and set its color
-        Transform childTransform =element.transform.Find("Preview_Image");
-         Image previewImg = childTransform.GetComponent<Image>();
+        Transform childTransform = element.transform.Find("Preview_Image");
+        Image previewImg = childTransform.GetComponent<Image>();
         if (PreviewImg != null)
         {
-            PreviewImg.color = playerColor;
+           // PreviewImg.color = playerColor;
             previewImg.color = playerColor;
 
-            Debug.Log("PreviewImage NAmr**" +PreviewImg.name);
-            Debug.Log(" smallllPreviewImage NAmr**" +previewImg.name);
+
         }
 
         PlayerRoomTitleElementList.Add(element);
+    }
+
+    public void UpdatePlayerUIColor(LAK_NetworkRoomPlayer player, Color color)
+    {
+        // Assuming each player's UI element has a unique identifier, like the player's name
+        foreach (var uiElement in PlayerRoomTitleElementList)
+        {
+            var tmpText = uiElement.GetComponentInChildren<TextMeshProUGUI>();
+            if (tmpText != null && tmpText.text == player.DisplayName)
+            {
+                Transform childTransform = uiElement.transform.Find("Preview_Image");
+                Image previewImg = childTransform.GetComponent<Image>();
+                if (PreviewImg != null)
+                {
+                    previewImg.color = color;
+                    break;
+
+                }
+            }
+        }
     }
 
     /* Transform childTransform = PlayerRoomTitleElement.transform.Find("Preview_Image");
