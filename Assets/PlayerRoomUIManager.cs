@@ -64,6 +64,10 @@ public class PlayerRoomUIManager : MonoBehaviour
     private void Start()
     {
         PreviewImg.color = Color.gray;
+      
+
+     
+
     }
     private void OnEnable()
     {
@@ -122,6 +126,7 @@ public class PlayerRoomUIManager : MonoBehaviour
         // Add all current players to the UI
         foreach (var player in NWRoomPlayerList)
         {
+            PColor = player.DisplayColor;
             AddPlayer(player.index, player.DisplayName, player.readyToBegin, player.DisplayColor);
         }
     }

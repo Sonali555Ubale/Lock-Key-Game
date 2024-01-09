@@ -44,12 +44,12 @@ public class RoomPanelManager : NetworkBehaviour
             CurrentNetworkPlayer?.CmdChangeReadyState(true);
         Debug.Log("OnPlayerReady Called::");
 
-
         CancelButton.gameObject.SetActive(true);
         CancelButton.interactable = true;
         ReadyButton.interactable = false;
         ReadyButton.gameObject.SetActive(false);
-       // playerRoomUIManager.ResetPlayerTableUI();
+       
+        // playerRoomUIManager.ResetPlayerTableUI();
 
         /* if (isServer )
              StartButton.gameObject.SetActive(true);

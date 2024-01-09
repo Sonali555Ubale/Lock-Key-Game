@@ -60,6 +60,7 @@ public class LAK_NetworkRoomManager : NetworkRoomManager
     {
         //optimize logic later hence taking extra parameters
         OnClientReadyStateChanged.Invoke();
+       // OnPlayerColorSelectionEmogy.Invoke();
     }
 
     public override void ReadyStatusChanged()
